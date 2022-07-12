@@ -17,27 +17,17 @@ public class EditBooks
     public static void AlterBooks(int id, BookModel replaceBook)
     {
         using var context = new LibraryContext();
-        //replaceBook.Id = id;
         var originalBook = context.Books.Find(id);
         originalBook.Title = replaceBook.Title;
         originalBook.Author = replaceBook.Author;
-        
-        /*foreach (var property in typeof(BookModel).GetProperties())
+
+        foreach (var property in typeof(BookModel).GetProperties())
         {
             if (property.Name != "Id")
             {
-                if (property.GetValue(replaceBook) != property.GetValue(originalBook))
-                {
-                    
-                }
-            }
-            
-            if (property.Name != "Id" && searchValue != null)
-            {
-                books = books.Where(b => property.GetValue(b).Equals(searchValue)).ToList();
+                property.SetValue(originalBook, property.GetValue(replaceBook));
             }
         }
-        context.Books.Remove(lostBook);*/
         context.SaveChanges();
     }
     
