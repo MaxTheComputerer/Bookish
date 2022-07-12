@@ -78,12 +78,9 @@ public class HomeController : Controller
         return View(newBook);
     }
 
-    //[HttpPost]
-    public IActionResult ViewCopies()
+    [HttpPost]
+    public IActionResult ViewCopies(BookModel book)
     {
-        //temp
-        var book = SearchModel.SearchForBook(new BookModel() { Author = "George" }).First();
-            
         var copies = BookCopyService.GetCopies(book);
         var result = new BookCopyResult()
         {

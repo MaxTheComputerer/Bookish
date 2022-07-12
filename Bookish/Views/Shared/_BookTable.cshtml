@@ -7,6 +7,9 @@
             <th scope="col">Id</th>
             <th scope="col">Author</th>
             <th scope="col">Title</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -16,6 +19,14 @@
                 <th scope="row">@book.Id</th>
                 <td>@book.Author</td>
                 <td>@book.Title</td>
+                <td>
+                    @using (Html.BeginForm("ViewCopies", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" id="title" name="Title" value="@book.Title">
+                        <input type="hidden" id="id" name="Id" value=@book.Id>
+                        <button type="submit" class="btn btn-primary">View Copies</button>
+                    }
+                </td>
                 <td>
                     @using (Html.BeginForm("EditBook", "Home", FormMethod.Get))
                     {
@@ -27,7 +38,7 @@
                     @using (Html.BeginForm("DeleteBook", "Home", FormMethod.Post))
                     {
                         <input type="hidden" id="id" name="id" value=@book.Id>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     }
                 </td>
             </tr>
