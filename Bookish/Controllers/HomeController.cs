@@ -36,6 +36,13 @@ public class HomeController : Controller
         return View(results);
     }
     
+    [HttpPost]
+    public ActionResult DeleteBook(BookModel lostBook)
+    {
+        EditBooks.DeleteBooks(lostBook.Id);
+        return View();
+    }
+    
     public IActionResult Catalogue()
     {
         using var context = new LibraryContext();
@@ -46,7 +53,6 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult AddBook()
     {
-        
         return View();
     }
     
