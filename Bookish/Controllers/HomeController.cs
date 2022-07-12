@@ -16,6 +16,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        return View();
+    }
+    
+    public IActionResult Catalogue()
+    {
         using var context = new LibraryContext();
         var books = context.Books.ToList();
         return View(books);
