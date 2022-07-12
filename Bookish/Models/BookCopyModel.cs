@@ -17,3 +17,9 @@ public class BookCopyModel
         return DueDate.Date < DateTime.Today.Date;
     }
 }
+
+public class BookCopyResult
+{
+    public BookModel book { get; set; }
+    public List<BookCopyModel> copies { get; set; }
+}

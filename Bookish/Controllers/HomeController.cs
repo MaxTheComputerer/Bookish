@@ -57,6 +57,21 @@ public class HomeController : Controller
         return View(newBook);
     }
 
+    //[HttpPost]
+    public IActionResult GetCopies()
+    {
+        //temp
+        var book = SearchModel.SearchForBook(new BookModel() { Author = "George" }).First();
+            
+        var copies = BookCopyService.GetCopies(book);
+        var result = new BookCopyResult()
+        {
+            book = book,
+            copies = copies
+        };
+        return View(result);
+    }
+
     public IActionResult Privacy()
     {
         return View();
