@@ -1,0 +1,24 @@
+﻿@model Bookish.Models.BookModel
+@{
+    ViewData["Title"] = "Add Book";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div class="col-md-12">
+        @using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
+        {
+            <fieldset>
+                <legend>Author:</legend>
+                @Html.TextBoxFor(m => m.Author)
+                
+                <legend>Title:</legend>
+                @Html.TextBoxFor(m => m.Title)
+
+                <input type="submit" value="Add new book" />
+            </fieldset>
+        }
+    </div>
+</div>

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Bookish.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace Bookish.Controllers;
 
@@ -18,6 +19,20 @@ public class HomeController : Controller
         using var context = new LibraryContext();
         var books = context.Books.ToList();
         return View(books);
+    }
+    
+    [HttpGet]
+    public IActionResult AddBook()
+    {
+        
+        return View();
+    }
+    
+    [HttpPost]
+    public ActionResult AddBook(BookModel newBook)
+    {
+        EditBooks.InsertBooks(newBook.Author, newBook.Title);
+        return View();
     }
 
     public IActionResult Privacy()
