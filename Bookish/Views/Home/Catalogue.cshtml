@@ -1,3 +1,4 @@
+@model List<BookModel>
 @{
     ViewData["Title"] = "Catalogue";
 }
@@ -6,24 +7,4 @@
     <h1 class="display-4">Catalogue</h1>
 </div>
 
-<div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Author</th>
-            <th scope="col">Title</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var book in Model)
-        {
-            <tr>
-                <th scope="row">@book.Id</th>
-                <td>@book.Author</td>
-                <td>@book.Title</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+@Html.Partial("_BookTable")
