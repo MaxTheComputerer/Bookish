@@ -1,0 +1,31 @@
+﻿@model List<BookCopyModel>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Borrower</th>
+            <th scope="col">Due date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var copy in Model)
+        {
+            <tr>
+                <th scope="row">@copy.Id</th>
+                @if (!copy.IsAvailable())
+                {
+                    <td>@copy.Borrower.Name</td>
+                    <td>@copy.DueDate</td>
+                }
+                else
+                {
+                    <td></td>
+                    <td></td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
