@@ -16,6 +16,20 @@
                 <th scope="row">@book.Id</th>
                 <td>@book.Author</td>
                 <td>@book.Title</td>
+                <td>
+                    @using (Html.BeginForm("EditBook", "Home", FormMethod.Get))
+                    {
+                        <input type="hidden" id="id" name="id" value=@book.Id>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteBook", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" id="id" name="id" value=@book.Id>
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    }
+                </td>
             </tr>
         }
         </tbody>
