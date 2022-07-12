@@ -15,7 +15,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        using var context = new LibraryContext();
+        var books = context.Books.ToList();
+        return View(books);
     }
 
     public IActionResult Privacy()
