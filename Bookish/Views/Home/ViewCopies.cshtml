@@ -1,0 +1,38 @@
+@model Bookish.Models.BookCopyResult
+@{
+    ViewData["Title"] = "View Copies";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Copies of @Model.book.Title</h1>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Borrower</th>
+            <th scope="col">Due date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var copy in Model.copies)
+        {
+            <tr>
+                <th scope="row">@copy.Id</th>
+                @if (!copy.IsAvailable())
+                {
+                    <td>@copy.Borrower.Name</td>
+                    <td>@copy.DueDate</td>
+                }
+                else
+                {
+                    <td></td>
+                    <td></td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
