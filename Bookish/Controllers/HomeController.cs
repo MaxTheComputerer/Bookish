@@ -36,6 +36,28 @@ public class HomeController : Controller
         return View(results);
     }
     
+    [HttpGet]
+    public ActionResult EditBook(int id)
+    {
+        using var context = new LibraryContext();
+        BookModel updateBook = context.Books.Single(b =>b.Id == id);
+        return View(updateBook);
+    }
+    
+    [HttpPost]
+    public ActionResult EditBook(BookModel replaceBook)
+    {
+        EditBooks.AlterBooks(replaceBook.Id, replaceBook);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpPost]
+    public ActionResult DeleteBook(BookModel lostBook)
+    {
+        EditBooks.DeleteBooks(lostBook.Id);
+        return View();
+    }
+    
     public IActionResult Catalogue()
     {
         using var context = new LibraryContext();
@@ -46,7 +68,6 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult AddBook()
     {
-        
         return View();
     }
     
