@@ -7,6 +7,8 @@
             <th scope="col">Id</th>
             <th scope="col">Borrower</th>
             <th scope="col">Due date</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -18,12 +20,33 @@
                 {
                     <td>@copy.Borrower.Name</td>
                     <td>@copy.DueDate</td>
+                    <td>
+                        @using (Html.BeginForm("CheckInCopy", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" id="id" name="Id" value=@copy.Id>
+                            <button type="submit" class="btn btn-primary">Check In</button>
+                        }
+                    </td>
                 }
                 else
                 {
                     <td></td>
                     <td></td>
+                    <td>
+                        @using (Html.BeginForm("CheckOutCopy", "Home", FormMethod.Post))
+                        {
+                            <input type="hidden" id="id" name="Id" value=@copy.Id>
+                            <button type="submit" class="btn btn-primary">Check Out</button>
+                        }
+                    </td>
                 }
+                <td>
+                    @using (Html.BeginForm("DeleteCopy", "Home", FormMethod.Post))
+                    {
+                        <input type="hidden" id="id" name="id" value=@copy.Id>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
             </tr>
         }
         </tbody>

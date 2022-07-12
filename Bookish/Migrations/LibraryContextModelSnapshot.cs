@@ -36,7 +36,7 @@ namespace Bookish.Migrations
                     b.Property<int?>("BorrowerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DueDate")
+                    b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

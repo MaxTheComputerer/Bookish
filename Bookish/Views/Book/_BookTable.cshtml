@@ -26,9 +26,8 @@
                     }
                 }
                 <td>
-                    @using (Html.BeginForm("ViewCopies", "Book", FormMethod.Post))
+                    @using (Html.BeginForm("ViewCopies", "Book", FormMethod.Get))
                     {
-                        <input type="hidden" id="title" name="Title" value="@book.Title">
                         <input type="hidden" id="id" name="Id" value=@book.Id>
                         <button type="submit" class="btn btn-primary">View Copies</button>
                     }

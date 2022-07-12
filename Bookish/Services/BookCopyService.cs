@@ -22,20 +22,28 @@ public class BookCopyService
         context.SaveChanges();
     }
     
-    public static List<BookCopyModel> GetCopies(BookModel book)
+    public static BookCopyResult GetCopies(BookModel book)
     {
         using var context = new LibraryContext();
-        return context.BookCopies
+        book = context.Books.Find(book.Id);
+        
+        var copies =  context.BookCopies
             .Where(c => c.Book == book)
             .Include(c => c.Book)
             .Include(c => c.Borrower)
             .ToList();
+        
+        return new BookCopyResult()
+        {
+            book = book,
+            copies = copies
+        };
     }
 
     public static void CheckOutCopy(int copyId, MemberModel borrower, DateTime dueDate)
     {
         using var context = new LibraryContext();
-        var copy = context.BookCopies.First(c => c.Id == copyId);
+        var copy = context.BookCopies.Find(copyId);
         copy.Borrower = borrower;
         copy.DueDate = dueDate;
         context.SaveChanges();
@@ -44,9 +52,22 @@ public class BookCopyService
     public static void CheckInCopy(int copyId)
     {
         using var context = new LibraryContext();
-        var copy = context.BookCopies.First(c => c.Id == copyId);
+        var copy = context.BookCopies
+            .Where(c => c.Id == copyId)
+            .Include(c => c.Borrower)
+            .FirstOrDefault();
         copy.Borrower = null;
-        copy.DueDate = new DateTime();
+        copy.DueDate = null;
         context.SaveChanges();
+    }
+
+    public static BookModel GetBookFromCopy(int copyId)
+    {
+        using var context = new LibraryContext();
+        var copy = context.BookCopies
+            .Where(c => c.Id == copyId)
+            .Include(c => c.Book)
+            .FirstOrDefault();
+        return copy.Book;
     }
 }

@@ -12,9 +12,49 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+    
     public IActionResult Index()
     {
         return View();
+    }
+
+    [HttpGet]
+    public IActionResult ViewCopies(BookModel book)
+    {
+        if (book == null || book.Id == null)
+        {
+            return RedirectToAction(nameof(Catalogue));
+        }
+        var result = BookCopyService.GetCopies(book);
+        return View(result);
+    }
+    
+    [HttpPost]
+    public ActionResult DeleteCopy(BookCopyModel copy)
+    {
+        // todo
+        return RedirectToAction(nameof(ViewCopies));
+    }
+    
+    [HttpPost]
+    public ActionResult CheckInCopy(BookCopyModel copy)
+    {
+        BookCopyService.CheckInCopy(copy.Id);
+        var book = BookCopyService.GetBookFromCopy(copy.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+    }
+    
+    [HttpPost]
+    public ActionResult CheckOutCopy(BookCopyModel copy)
+    {
+        // todo: get member and date from form
+        using var context = new LibraryContext();
+        var member = context.Members.Find(1);
+        var dueDate = DateTime.Today.AddDays(1);
+        
+        BookCopyService.CheckOutCopy(copy.Id, member, dueDate);
+        var book = BookCopyService.GetBookFromCopy(copy.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
     }
 
     public IActionResult Privacy()
