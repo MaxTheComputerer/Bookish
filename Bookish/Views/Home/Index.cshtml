@@ -5,3 +5,19 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+
+<div class="container">
+    <h2>Search</h2>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="mb-3">
+            <label for="Author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="Author" name="Author">
+        </div>
+        <div class="mb-3">
+            <label for="Title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="Title" name="Title">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
+</div>

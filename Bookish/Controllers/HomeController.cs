@@ -18,6 +18,23 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    [HttpPost]
+    public IActionResult Index(BookModel search)
+    {
+        if (SearchModel.IsFormBlank(search))
+        {
+            return View(search);
+        }
+
+        return RedirectToAction(nameof(Search), search);
+    }
+    
+    public IActionResult Search(BookModel search)
+    {
+        var results = SearchModel.SearchForBook(search);
+        return View(results);
+    }
     
     public IActionResult Catalogue()
     {
