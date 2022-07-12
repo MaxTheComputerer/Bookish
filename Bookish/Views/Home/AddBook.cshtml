@@ -5,20 +5,25 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (Model != null)
+    {
+        <div class="alert alert-success" role="alert">
+            Successfully added @Model.Title to the library! :)
+        </div>
+    }
 
-    <div class="col-md-12">
+    <div class="col">
         @using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
         {
-            <fieldset>
-                <legend>Author:</legend>
-                @Html.TextBoxFor(m => m.Author)
-                
-                <legend>Title:</legend>
-                @Html.TextBoxFor(m => m.Title)
-
-                <input type="submit" value="Add new book" />
-            </fieldset>
+            <div class="mb-3">
+                <label for="Author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="Author" name="Author">
+            </div>
+            <div class="mb-3">
+                <label for="Title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="Title" name="Title">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         }
     </div>
 </div>

@@ -32,7 +32,7 @@ public class HomeController : Controller
     public ActionResult AddBook(BookModel newBook)
     {
         EditBooks.InsertBooks(newBook.Author, newBook.Title);
-        return View();
+        return View(newBook);
     }
 
     public IActionResult Privacy()
