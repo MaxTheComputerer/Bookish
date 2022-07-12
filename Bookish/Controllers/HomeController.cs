@@ -58,7 +58,7 @@ public class HomeController : Controller
     }
 
     //[HttpPost]
-    public IActionResult GetCopies()
+    public IActionResult ViewCopies()
     {
         //temp
         var book = SearchModel.SearchForBook(new BookModel() { Author = "George" }).First();

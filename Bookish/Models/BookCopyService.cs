@@ -15,6 +15,13 @@ public class BookCopyService
         context.SaveChanges();
     }
     
+    public static void DeleteCopy(int copyId)
+    {
+        using var context = new LibraryContext();
+        context.BookCopies.Remove(new BookCopyModel() { Id = copyId });
+        context.SaveChanges();
+    }
+    
     public static List<BookCopyModel> GetCopies(BookModel book)
     {
         using var context = new LibraryContext();
