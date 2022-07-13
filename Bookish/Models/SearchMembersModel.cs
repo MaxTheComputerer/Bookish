@@ -24,14 +24,12 @@ public class SearchMembersModel
         using var context = new LibraryContext();
         var members = context.Members.ToList();
 
-        // Iterate over all possible properties of a member, except its Id
         foreach (var property in typeof(MemberModel).GetProperties())
         {
             var parameter = property.GetValue(searchParameters);
             if (property.Name != "Id" && parameter != null)
             {
                 var parameterString = (string) parameter;
-                // Filter to only members which match the user's search
                 members = members.Where(member => MemberHasMatchingProperty(member, property, parameterString)).ToList();
             }
         }
