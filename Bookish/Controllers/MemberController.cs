@@ -34,6 +34,7 @@ public class MemberController : Controller
         }
     }
     
+    [HttpGet]
     public ActionResult EditMember(int id)
     {
         MemberModel updateMember = MemberEditService.GetMemberFromId(id);
@@ -43,8 +44,15 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult EditMember(MemberModel replaceMember)
     {
-        MemberEditService.AlterMember(replaceMember.Id, replaceMember);
-        return RedirectToAction(nameof(MemberList));
+        if (MemberSearchService.IsFormBlank(replaceMember))
+        {
+            return View(replaceMember);
+        }
+        else
+        {
+            MemberEditService.AlterMember(replaceMember.Id, replaceMember);
+            return RedirectToAction(nameof(MemberList));
+        }
     }
     
     [HttpPost]

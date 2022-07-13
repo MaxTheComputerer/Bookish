@@ -44,8 +44,15 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult EditBook(BookModel replaceBook)
     {
-        BookEditService.AlterBook(replaceBook.Id, replaceBook);
-        return RedirectToAction(nameof(SearchBooksResults));
+        if (BookSearchService.IsFormBlank(replaceBook))
+        {
+            return View(replaceBook);
+        }
+        else
+        {
+            BookEditService.AlterBook(replaceBook.Id, replaceBook);
+            return RedirectToAction(nameof(Catalogue));
+        }
     }
     
     [HttpPost]
