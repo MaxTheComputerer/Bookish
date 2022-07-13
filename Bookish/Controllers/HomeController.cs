@@ -13,84 +13,9 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
     public IActionResult Index()
     {
         return View();
-    }
-
-    [HttpPost]
-    public IActionResult Index(BookModel search)
-    {
-        if (SearchModel.IsFormBlank(search))
-        {
-            return View(search);
-        }
-
-        return RedirectToAction(nameof(Search), search);
-    }
-    
-    public IActionResult Search(BookModel search)
-    {
-        var results = SearchModel.SearchForBook(search);
-        return View(results);
-    }
-    
-    [HttpGet]
-    public ActionResult EditBook(int id)
-    {
-        using var context = new LibraryContext();
-        BookModel updateBook = context.Books.Single(b =>b.Id == id);
-        return View(updateBook);
-    }
-    
-    [HttpPost]
-    public ActionResult EditBook(BookModel replaceBook)
-    {
-        EditBooks.AlterBooks(replaceBook.Id, replaceBook);
-        return RedirectToAction(nameof(Index));
-    }
-    
-    [HttpPost]
-    public ActionResult DeleteBook(BookModel lostBook)
-    {
-        EditBooks.DeleteBooks(lostBook.Id);
-        return View();
-    }
-    
-    public IActionResult Catalogue()
-    {
-        using var context = new LibraryContext();
-        var books = context.Books.ToList();
-        return View(books);
-    }
-    
-    [HttpGet]
-    public IActionResult AddBook()
-    {
-        return View();
-    }
-    
-    [HttpPost]
-    public ActionResult AddBook(BookModel newBook)
-    {
-        EditBooks.InsertBooks(newBook.Author, newBook.Title);
-        return View(newBook);
-    }
-
-    //[HttpPost]
-    public IActionResult ViewCopies()
-    {
-        //temp
-        var book = SearchModel.SearchForBook(new BookModel() { Author = "George" }).First();
-            
-        var copies = BookCopyService.GetCopies(book);
-        var result = new BookCopyResult()
-        {
-            book = book,
-            copies = copies
-        };
-        return View(result);
     }
 
     public IActionResult Privacy()
