@@ -39,8 +39,9 @@ public class HomeController : Controller
     [HttpPost]
     public ActionResult DeleteCopy(BookCopyModel copy)
     {
-        // todo
-        return RedirectToAction(nameof(ViewCopies));
+        var book = BookCopyService.GetBookFromCopy(copy.Id);
+        BookCopyService.DeleteCopy(copy.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
     }
     
     [HttpPost]
