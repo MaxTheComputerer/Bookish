@@ -7,9 +7,10 @@ namespace Bookish.Controllers;
 
 public class MemberController : Controller
 {
+    [HttpGet]
     public IActionResult MemberList()
     {
-        var members = EditMembers.GetMemberList();
+        var members = MemberEditService.GetMemberList();
         return View(members);
     }
     
@@ -22,28 +23,28 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult AddMember(MemberModel newMember)
     {
-        EditMembers.InsertMembers(newMember);
+        MemberEditService.InsertMember(newMember);
         return View(newMember);
     }
     
     public ActionResult EditMember(int id)
     {
-        MemberModel updateMember = EditMembers.GetMemberFromId(id);
+        MemberModel updateMember = MemberEditService.GetMemberFromId(id);
         return View(updateMember);
     }
     
     [HttpPost]
     public ActionResult EditMember(MemberModel replaceMember)
     {
-        EditMembers.AlterMembers(replaceMember.Id, replaceMember);
-        return RedirectToAction(nameof(SearchMembersResults));
+        MemberEditService.AlterMember(replaceMember.Id, replaceMember);
+        return RedirectToAction(nameof(MemberList));
     }
     
     [HttpPost]
     public ActionResult DeleteMember(MemberModel lostMember)
     {
-        EditMembers.DeleteMembers(lostMember.Id);
-        return View();
+        MemberEditService.DeleteMember(lostMember.Id);
+        return RedirectToAction(nameof(MemberList));
     }
 
     [HttpGet]
@@ -55,16 +56,17 @@ public class MemberController : Controller
     [HttpPost]
     public IActionResult SearchMembers(MemberModel search)
     {
-        if (SearchMembersModel.IsFormBlank(search))
+        if (MemberSearchService.IsFormBlank(search))
         {
             return View(search);
         }
         return RedirectToAction(nameof(SearchMembersResults), search);
     }
     
+    [HttpPost]
     public IActionResult SearchMembersResults(MemberModel search)
     {
-        var results = SearchMembersModel.SearchForMember(search);
+        var results = MemberSearchService.SearchForMember(search);
         return View(results);
     }
 }

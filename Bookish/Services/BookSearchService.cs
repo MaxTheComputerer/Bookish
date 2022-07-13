@@ -2,7 +2,7 @@
 
 namespace Bookish.Models;
 
-public class SearchBooksModel
+public class BookSearchService
 {
     // Tests if <searchParameter> is contained in <property> of <book> 
     private static bool BookHasMatchingProperty(BookModel book, PropertyInfo property, string searchParameter)

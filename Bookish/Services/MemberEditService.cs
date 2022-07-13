@@ -1,6 +1,6 @@
 namespace Bookish.Models;
 
-public class EditMembers
+public class MemberEditService
 {
     static LibraryContext context = new LibraryContext();
     public static List<MemberModel> GetMemberList()
@@ -15,13 +15,13 @@ public class EditMembers
         return member;
     }
     
-    public static void InsertMembers(MemberModel newmember)
+    public static void InsertMember(MemberModel newMember)
     {
-        context.Members.Add(newmember);
+        context.Members.Add(newMember);
         context.SaveChanges();
     }
 
-    public static void AlterMembers(int id, MemberModel replaceMember)
+    public static void AlterMember(int id, MemberModel replaceMember)
     {
         var originalMember = GetMemberFromId(id);
         foreach (var property in typeof(MemberModel).GetProperties())
@@ -34,7 +34,7 @@ public class EditMembers
         context.SaveChanges();
     }
     
-    public static void DeleteMembers(int id)
+    public static void DeleteMember(int id)
     {
         var lostMember = GetMemberFromId(id);
         context.Members.Remove(lostMember);
