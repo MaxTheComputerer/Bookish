@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Search</h2>
-    @using (Html.BeginForm("SearchBooksResults", "Book", FormMethod.Post))
+    @using (Html.BeginForm("SearchBooksResults", "Book", FormMethod.Get))
     {
         @foreach (var property in typeof(BookModel).GetProperties())
         {
@@ -21,7 +21,7 @@
                 }
             </select>
         </div>
-
+        <input type="hidden" name="pageTitle" value="Search Results">
         <button type="submit" class="btn btn-primary">Search</button>
     }
 </div>

@@ -1,10 +1,49 @@
 @model List<BookModel>
-@{
-    ViewData["Title"] = "Search Books Results";
-}
 
 <div class="text-center">
-    <h1 class="display-4">Search Books Results</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
 
-@Html.Partial("_BookTable")
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            @Html.Partial("SearchBooksResultTableHeader", "Id")
+            @foreach (var property in typeof(BookModel).GetProperties().Where(p => p.Name != "Id"))
+            {
+                @Html.Partial("SearchBooksResultTableHeader", property.Name)
+            }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <th scope="row">@book.Id</th>
+                @foreach (var property in typeof(BookModel).GetProperties())
+                {
+                    if (property.Name != "Id")
+                    {
+                        <td>@property.GetValue(book)</td>
+                    }
+                }
+                
+                <td>
+                    @using (Html.BeginForm("EditBook", "Book", FormMethod.Get))
+                    {
+                        <input type="hidden" id="id" name="id" value=@book.Id>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteBook", "Book", FormMethod.Post))
+                    {
+                        <input type="hidden" id="id" name="id" value=@book.Id>
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

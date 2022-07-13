@@ -5,20 +5,16 @@ namespace Bookish.Controllers;
 
 public class BookController : Controller
 {
-    [HttpGet]
-    public IActionResult Catalogue()
+    public IActionResult Catalogue(string orderBy = "Author")
     {
-        var books = SearchBooksService.SearchForBook(new BookModel());
-        return View(books);
+        var searchModel = new SearchBooksModel()
+        {
+            orderBy = orderBy,
+            pageTitle = "Catalogue"
+        };
+        return RedirectToAction(nameof(SearchBooksResults), searchModel);
     }
-    
-    [HttpPost]
-    public IActionResult Catalogue(string orderBy)
-    {
-        var books = SearchBooksService.SearchForBook(new BookModel(), orderBy);
-        return View(books);
-    }
-    
+
     [HttpGet]
     public IActionResult AddBook()
     {
@@ -59,8 +55,15 @@ public class BookController : Controller
         return View();
     }
 
+    [HttpGet]
     public IActionResult SearchBooksResults(SearchBooksModel search)
     {
+        ViewData["searchParams"] = search;
+        ViewData["Title"] = search.pageTitle;
+        if (search.searchParameters == null)
+        {
+            search.searchParameters = new BookModel();
+        }
         if (search.orderBy != null)
         {
             return View(SearchBooksService.SearchForBook(search.searchParameters, search.orderBy));
