@@ -7,9 +7,10 @@ namespace Bookish.Controllers;
 
 public class BookController : Controller
 {
+    [HttpGet]
     public IActionResult Catalogue()
     {
-        var books = EditBooks.GetBookList();
+        var books = BookEditService.GetBookList();
         return View(books);
     }
     
@@ -22,28 +23,29 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult AddBook(BookModel newBook)
     {
-        EditBooks.InsertBooks(newBook);
+        BookEditService.InsertBook(newBook);
         return View(newBook);
     }
+    
     [HttpGet]
     public ActionResult EditBook(int id)
     {
-        BookModel updateBook = EditBooks.GetBookFromId(id);
+        BookModel updateBook = BookEditService.GetBookFromId(id);
         return View(updateBook);
     }
     
     [HttpPost]
     public ActionResult EditBook(BookModel replaceBook)
     {
-        EditBooks.AlterBooks(replaceBook.Id, replaceBook);
-        return RedirectToAction(nameof(SearchBooksResults));
+        BookEditService.AlterBook(replaceBook.Id, replaceBook);
+        return RedirectToAction(nameof(Catalogue));
     }
     
     [HttpPost]
     public ActionResult DeleteBook(BookModel lostBook)
     {
-        EditBooks.DeleteBooks(lostBook.Id);
-        return View();
+        BookEditService.DeleteBook(lostBook.Id);
+        return RedirectToAction(nameof(Catalogue));
     }
 
     [HttpGet]
@@ -55,7 +57,7 @@ public class BookController : Controller
     [HttpPost]
     public IActionResult SearchBooks(BookModel search)
     {
-        if (SearchBooksModel.IsFormBlank(search))
+        if (BookSearchService.IsFormBlank(search))
         {
             return View(search);
         }
@@ -63,9 +65,10 @@ public class BookController : Controller
         return RedirectToAction(nameof(SearchBooksResults), search);
     }
     
+    [HttpPost]
     public IActionResult SearchBooksResults(BookModel search)
     {
-        var results = SearchBooksModel.SearchForBook(search);
+        var results = BookSearchService.SearchForBook(search);
         return View(results);
     }
 
@@ -73,7 +76,7 @@ public class BookController : Controller
     public IActionResult ViewCopies()
     {
         //temp
-        var book = SearchBooksModel.SearchForBook(new BookModel() { Author = "George" }).First();
+        var book = BookSearchService.SearchForBook(new BookModel() { Author = "George" }).First();
             
         var copies = BookCopyService.GetCopies(book);
         var result = new BookCopyResult()

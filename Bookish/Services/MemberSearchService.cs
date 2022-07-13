@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace Bookish.Models;
 
-public class SearchMembersModel
+public class MemberSearchService
 {
     // Tests if <searchParameter> is contained in <property> of <member> 
     private static bool MemberHasMatchingProperty(MemberModel member, PropertyInfo property, string searchParameter)

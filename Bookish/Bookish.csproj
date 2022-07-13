@@ -14,8 +14,4 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Remove="Views\Home\EditMember.cshtml" />
-    </ItemGroup>
-
 </Project>
