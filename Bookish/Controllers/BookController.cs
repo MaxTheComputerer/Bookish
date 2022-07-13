@@ -1,7 +1,5 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Bookish.Models;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace Bookish.Controllers;
 
@@ -10,7 +8,14 @@ public class BookController : Controller
     [HttpGet]
     public IActionResult Catalogue()
     {
-        var books = BookEditService.GetBookList();
+        var books = SearchBooksService.SearchForBook(new BookModel());
+        return View(books);
+    }
+    
+    [HttpPost]
+    public IActionResult Catalogue(string orderBy)
+    {
+        var books = SearchBooksService.SearchForBook(new BookModel(), orderBy);
         return View(books);
     }
     
@@ -53,23 +58,17 @@ public class BookController : Controller
     {
         return View();
     }
-    
-    [HttpPost]
-    public IActionResult SearchBooks(BookModel search)
-    {
-        if (BookSearchService.IsFormBlank(search))
-        {
-            return View(search);
-        }
 
-        return RedirectToAction(nameof(SearchBooksResults), search);
-    }
-    
-    [HttpPost]
-    public IActionResult SearchBooksResults(BookModel search)
+    public IActionResult SearchBooksResults(SearchBooksModel search)
     {
-        var results = BookSearchService.SearchForBook(search);
-        return View(results);
+        if (search.orderBy != null)
+        {
+            return View(SearchBooksService.SearchForBook(search.searchParameters, search.orderBy));
+        }
+        else
+        {
+            return View(SearchBooksService.SearchForBook(search.searchParameters));
+        }
     }
 
     [HttpGet]

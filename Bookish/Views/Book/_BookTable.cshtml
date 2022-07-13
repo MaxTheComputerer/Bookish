@@ -1,4 +1,7 @@
 ﻿@model List<BookModel>
+@{
+    var currentAction = (ViewContext.RouteData.Values["action"] ?? "Catalogue").ToString();
+}
 
 <div class="container">
     <table class="table">
@@ -6,7 +9,17 @@
         <tr>
             @foreach (var property in typeof(BookModel).GetProperties())
             {
-                <th scope="col">@property.Name</th>
+                <th scope="col" class="sort-header">
+                    @property.Name
+                    @if (currentAction == "Catalogue")
+                    {
+                        @using (Html.BeginForm(currentAction, "Book", FormMethod.Post))
+                        {
+                            <input type="hidden" name="orderBy" value="@property.Name" />
+                            <button type="submit" class=""><i class="bi bi-sort-alpha-down"></i></button>
+                        }
+                    }
+                </th>
             }
             <th></th>
             <th></th>

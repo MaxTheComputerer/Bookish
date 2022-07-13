@@ -16,3 +16,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.sort-header button {
+  background: transparent;
+  border: none;
+}
+
+.sort-header form {
+  display: inline-block;
+}
