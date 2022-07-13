@@ -23,8 +23,15 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult AddBook(BookModel newBook)
     {
-        BookEditService.InsertBook(newBook);
-        return View(newBook);
+        if (BookEditService.IsFormBlank(newBook))
+        {
+            return View();
+        }
+        else
+        {
+            BookEditService.InsertBook(newBook);
+            return View(newBook);
+        }
     }
     
     [HttpGet]
@@ -38,7 +45,7 @@ public class BookController : Controller
     public ActionResult EditBook(BookModel replaceBook)
     {
         BookEditService.AlterBook(replaceBook.Id, replaceBook);
-        return RedirectToAction(nameof(Catalogue));
+        return RedirectToAction(nameof(SearchBooksResults));
     }
     
     [HttpPost]

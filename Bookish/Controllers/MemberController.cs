@@ -23,8 +23,15 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult AddMember(MemberModel newMember)
     {
-        MemberEditService.InsertMember(newMember);
-        return View(newMember);
+        if (MemberSearchService.IsFormBlank(newMember))
+        {
+            return View();
+        }
+        else
+        {
+            MemberEditService.InsertMember(newMember);
+            return View(newMember);
+        }
     }
     
     public ActionResult EditMember(int id)

@@ -17,6 +17,13 @@ public class MemberEditService
     
     public static void InsertMember(MemberModel newMember)
     {
+        foreach (var property in typeof(MemberModel).GetProperties())
+        {
+            if (property.GetValue(newMember) is null)
+            {
+                property.SetValue(newMember, " ");
+            }
+        }
         context.Members.Add(newMember);
         context.SaveChanges();
     }

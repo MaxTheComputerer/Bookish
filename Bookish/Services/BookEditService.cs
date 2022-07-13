@@ -17,6 +17,13 @@ public class BookEditService
         
     public static void InsertBook(BookModel newBook)
     {
+        foreach (var property in typeof(BookModel).GetProperties())
+        {
+            if (property.GetValue(newBook) is null)
+            {
+                property.SetValue(newBook, " ");
+            }
+        }
         context.Books.Add(newBook);
         context.SaveChanges();
     }
