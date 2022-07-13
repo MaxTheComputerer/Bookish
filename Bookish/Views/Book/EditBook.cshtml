@@ -4,25 +4,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    @if (Model != null)
-    {
-        <div class="alert alert-success" role="alert">
-            Successfully edited @Model.Title!
-        </div>
-    }
+    <h1 class="display-4">Edit a Book</h1>
 
     <div class="col">
         @using (Html.BeginForm("EditBook", "Book", FormMethod.Post))
         {
-            <div class="mb-3">
-                <label for="Author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="Author" name="Author" value="@Model.Author">
-            </div>
-            <div class="mb-3">
-                <label for="Title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
-            </div>
+            @foreach (var property in typeof(BookModel).GetProperties())
+            {
+                if (property.Name != "Id")
+                {
+                    <div class="mb-3">
+                        <label for=@property.Name class="form-label">@property.Name</label>
+                        <input type="text" class="form-control" id=@property.Name name=@property.Name value="@property.GetValue(Model)">
+                    </div>
+                }
+            }
             <input type="hidden" id="id" name = "Id" value="@Model.Id">
             <button type="submit" class="btn btn-primary">Submit</button>
         }

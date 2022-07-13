@@ -2,13 +2,17 @@ namespace Bookish.Models;
 
 public class EditMembers
 {
-    public static void InsertMembers(string name)
+    public static void InsertMembers(MemberModel newmember)
     {
         using var context = new LibraryContext();
-        var member = new MemberModel
+        var member = new MemberModel();
+        foreach (var property in typeof(MemberModel).GetProperties())
         {
-            Name = name
-        };
+            if (property.Name != "Id")
+            {
+                property.SetValue(member, property.GetValue(newmember));
+            }
+        }
         context.Members.Add(member);
         context.SaveChanges();
     }
@@ -17,7 +21,6 @@ public class EditMembers
     {
         using var context = new LibraryContext();
         var originalMember = context.Members.Find(id);
-        originalMember.Name = replaceMember.Name;
 
         foreach (var property in typeof(MemberModel).GetProperties())
         {

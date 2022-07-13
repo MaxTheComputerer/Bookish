@@ -23,7 +23,7 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult AddMember(MemberModel newMember)
     {
-        EditMembers.InsertMembers(newMember.Name);
+        EditMembers.InsertMembers(newMember);
         return View(newMember);
     }
     
