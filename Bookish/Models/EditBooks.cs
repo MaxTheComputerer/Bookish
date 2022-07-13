@@ -2,14 +2,17 @@
 
 public class EditBooks
 {
-    public static void InsertBooks(string author, string title)
+    public static void InsertBooks(BookModel newbook)
     {
         using var context = new LibraryContext();
-        var book = new BookModel
+        var book = new BookModel();
+        foreach (var property in typeof(BookModel).GetProperties())
         {
-            Author = author,
-            Title = title
-        };
+            if (property.Name != "Id")
+            {
+                property.SetValue(book, property.GetValue(newbook));
+            }
+        }
         context.Books.Add(book);
         context.SaveChanges();
     }
@@ -18,8 +21,6 @@ public class EditBooks
     {
         using var context = new LibraryContext();
         var originalBook = context.Books.Find(id);
-        originalBook.Title = replaceBook.Title;
-        originalBook.Author = replaceBook.Author;
 
         foreach (var property in typeof(BookModel).GetProperties())
         {

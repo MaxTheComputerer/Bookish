@@ -4,9 +4,10 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Author</th>
-            <th scope="col">Title</th>
+            @foreach (var property in typeof(BookModel).GetProperties())
+            {
+                <th scope="col">@property.Name</th>
+            }
         </tr>
         </thead>
         <tbody>
@@ -14,8 +15,14 @@
         {
             <tr>
                 <th scope="row">@book.Id</th>
-                <td>@book.Author</td>
-                <td>@book.Title</td>
+                @foreach (var property in typeof(BookModel).GetProperties())
+                {
+                    if (property.Name != "Id")
+                    {
+                        <td>@property.GetValue(book)</td>
+                    }
+                }
+                
                 <td>
                     @using (Html.BeginForm("EditBook", "Book", FormMethod.Get))
                     {

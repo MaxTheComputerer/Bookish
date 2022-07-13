@@ -23,7 +23,7 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult AddBook(BookModel newBook)
     {
-        EditBooks.InsertBooks(newBook.Author, newBook.Title);
+        EditBooks.InsertBooks(newBook);
         return View(newBook);
     }
     [HttpGet]
