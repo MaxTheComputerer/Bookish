@@ -20,7 +20,7 @@
                 <td>@book.Author</td>
                 <td>@book.Title</td>
                 <td>
-                    @using (Html.BeginForm("ViewCopies", "Home", FormMethod.Post))
+                    @using (Html.BeginForm("ViewCopies", "Book", FormMethod.Post))
                     {
                         <input type="hidden" id="title" name="Title" value="@book.Title">
                         <input type="hidden" id="id" name="Id" value=@book.Id>
@@ -28,14 +28,14 @@
                     }
                 </td>
                 <td>
-                    @using (Html.BeginForm("EditBook", "Home", FormMethod.Get))
+                    @using (Html.BeginForm("EditBook", "Book", FormMethod.Get))
                     {
                         <input type="hidden" id="id" name="id" value=@book.Id>
                         <button type="submit" class="btn btn-primary">Edit</button>
                     }
                 </td>
                 <td>
-                    @using (Html.BeginForm("DeleteBook", "Home", FormMethod.Post))
+                    @using (Html.BeginForm("DeleteBook", "Book", FormMethod.Post))
                     {
                         <input type="hidden" id="id" name="id" value=@book.Id>
                         <button type="submit" class="btn btn-danger">Delete</button>

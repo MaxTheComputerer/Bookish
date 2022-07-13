@@ -1,6 +1,6 @@
-@model Bookish.Models.BookModel
+@model Bookish.Models.MemberModel
 @{
-    ViewData["Title"] = "Edit Book";
+    ViewData["Title"] = "Edit Member";
 }
 
 <div class="text-center">
@@ -8,20 +8,16 @@
     @if (Model != null)
     {
         <div class="alert alert-success" role="alert">
-            Successfully edited @Model.Title!
+            Successfully edited @Model.Name!
         </div>
     }
 
     <div class="col">
-        @using (Html.BeginForm("EditBook", "Home", FormMethod.Post))
+        @using (Html.BeginForm("EditMember", "Home", FormMethod.Post))
         {
             <div class="mb-3">
                 <label for="Author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="Author" name="Author" value="@Model.Author">
-            </div>
-            <div class="mb-3">
-                <label for="Title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
+                <input type="text" class="form-control" id="Author" name="Author" value="@Model.Name">
             </div>
             <input type="hidden" id="id" name = "Id" value="@Model.Id">
             <button type="submit" class="btn btn-primary">Submit</button>
