@@ -12,9 +12,9 @@ public class BookCopyModel
         return Borrower == null;
     }
 
-    public bool IsOverdue()
+    public TimeSpan OverdueTime()
     {
-        return DueDate.Value.Date < DateTime.Today.Date;
+        return DateTime.Today.Date.Subtract(DueDate.Value.Date);
     }
 }
 
