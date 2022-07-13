@@ -64,13 +64,14 @@ public class BookController : Controller
         {
             search.searchParameters = new BookModel();
         }
+
         if (search.orderBy != null)
         {
-            return View(SearchBooksService.SearchForBook(search.searchParameters, search.orderBy));
+            return View(BookSearch.Search(search.searchParameters, search.orderBy));
         }
         else
         {
-            return View(SearchBooksService.SearchForBook(search.searchParameters));
+            return View(BookSearch.Search(search.searchParameters));
         }
     }
 
