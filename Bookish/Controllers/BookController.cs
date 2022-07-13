@@ -48,6 +48,12 @@ public class BookController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult SearchBooks()
+    {
+        return View();
+    }
+    
     [HttpPost]
     public IActionResult SearchBooks(BookModel search)
     {
