@@ -5,6 +5,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Edit a Member</h1>
+    <div> Member ID: @Model.Id </div>
 
     <div class="col">
         @using (Html.BeginForm("EditMember", "Member", FormMethod.Post))
