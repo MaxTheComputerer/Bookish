@@ -3,8 +3,16 @@
     ViewData["Title"] = "View Copies";
 }
 
-<div class="text-center">
+<div class="text-center mb-4">
     <h1 class="display-4">Copies of @Model.book.Title</h1>
+</div>
+
+<div class="container mb-4">
+    @using (Html.BeginForm("AddCopy", "Home", FormMethod.Post))
+    {
+        <input type="hidden" id="addCopyId" name="Id" value=@Model.book.Id>
+        <button type="submit" class="btn btn-primary">Add copy</button>
+    }
 </div>
 
 @Html.Partial("_CopyTable", Model.copies)

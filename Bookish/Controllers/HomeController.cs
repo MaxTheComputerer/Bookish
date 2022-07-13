@@ -30,6 +30,13 @@ public class HomeController : Controller
     }
     
     [HttpPost]
+    public ActionResult AddCopy(BookModel book)
+    {
+        BookCopyService.InsertBookCopy(book.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+    }
+    
+    [HttpPost]
     public ActionResult DeleteCopy(BookCopyModel copy)
     {
         // todo
@@ -47,7 +54,6 @@ public class HomeController : Controller
     [HttpPost]
     public ActionResult CheckOutCopy(CheckOutCopyModel checkOutModel)
     {
-        // todo: get member and date from form
         using var context = new LibraryContext();
         var member = context.Members.Find(checkOutModel.BorrowerId);
 

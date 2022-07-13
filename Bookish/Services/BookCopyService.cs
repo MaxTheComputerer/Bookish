@@ -4,9 +4,10 @@ namespace Bookish.Models;
 
 public class BookCopyService
 {
-    public static void InsertBookCopy(BookModel book)
+    public static void InsertBookCopy(int bookId)
     {
         using var context = new LibraryContext();
+        var book = context.Books.Find(bookId);
         var copy = new BookCopyModel
         {
             Book = book
