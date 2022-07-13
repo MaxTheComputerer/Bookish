@@ -45,15 +45,14 @@ public class HomeController : Controller
     }
     
     [HttpPost]
-    public ActionResult CheckOutCopy(BookCopyModel copy)
+    public ActionResult CheckOutCopy(CheckOutCopyModel checkOutModel)
     {
         // todo: get member and date from form
         using var context = new LibraryContext();
-        var member = context.Members.Find(1);
-        var dueDate = DateTime.Today.AddDays(1);
-        
-        BookCopyService.CheckOutCopy(copy.Id, member, dueDate);
-        var book = BookCopyService.GetBookFromCopy(copy.Id);
+        var member = context.Members.Find(checkOutModel.BorrowerId);
+
+        BookCopyService.CheckOutCopy(checkOutModel.Id, member, checkOutModel.DueDate);
+        var book = BookCopyService.GetBookFromCopy(checkOutModel.Id);
         return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
     }
 

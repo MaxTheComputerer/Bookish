@@ -23,8 +23,8 @@
                     <td>
                         @using (Html.BeginForm("CheckInCopy", "Home", FormMethod.Post))
                         {
-                            <input type="hidden" id="id" name="Id" value=@copy.Id>
-                            <button type="submit" class="btn btn-primary">Check In</button>
+                            <input type="hidden" id="checkInId" name="Id" value=@copy.Id>
+                            <button type="submit" class="btn btn-primary">Check in</button>
                         }
                     </td>
                 }
@@ -33,17 +33,13 @@
                     <td></td>
                     <td></td>
                     <td>
-                        @using (Html.BeginForm("CheckOutCopy", "Home", FormMethod.Post))
-                        {
-                            <input type="hidden" id="id" name="Id" value=@copy.Id>
-                            <button type="submit" class="btn btn-primary">Check Out</button>
-                        }
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkOutModal" data-copy-id="@copy.Id" onclick="setModalValue(@copy.Id)">Check out</button>
                     </td>
                 }
                 <td>
                     @using (Html.BeginForm("DeleteCopy", "Home", FormMethod.Post))
                     {
-                        <input type="hidden" id="id" name="id" value=@copy.Id>
+                        <input type="hidden" id="deleteId" name="id" value=@copy.Id>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     }
                 </td>
@@ -52,3 +48,47 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="checkOutModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkOutModalLabel">Check out copy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            @using (Html.BeginForm("CheckOutCopy", "Home", FormMethod.Post))
+            {
+                <input type="hidden" id="checkOutFormId" name="Id" value="">
+                <div class="modal-body">
+                    
+                    <div class="mb-3">
+                        <label for="borrower" class="form-label">Borrower</label>
+                        <select class="form-select" id="borrower" name="BorrowerId">
+                            <option disabled selected>Choose borrower</option>
+                            <option value="1">Member1</option>
+                            <option value="2">Member2</option>
+                            <option value="3">Member3</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="dueDate" class="form-label">Due date</label>
+                        <input type="date" class="form-control" id="dueDate" name="DueDate">
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Check out</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+function setModalValue(id) {
+  document.getElementById("checkOutFormId").value = id;
+}
+</script>
