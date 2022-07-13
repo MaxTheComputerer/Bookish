@@ -48,6 +48,12 @@ public class MemberController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult SearchMembers()
+    {
+        return View();
+    }
+    
     [HttpPost]
     public IActionResult SearchMembers(MemberModel search)
     {
