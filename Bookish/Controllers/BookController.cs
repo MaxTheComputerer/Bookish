@@ -25,13 +25,20 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult AddBook(AddCopiesModel parameters)
     {
-        BookEditService.InsertBook(parameters.book);
-        var bookId = BookSearch.Search(parameters.book).First().Id;
-        for (int i = 0; i < parameters.numberOfCopies; i++)
+        if (BookEditService.IsFormBlank(parameters.book))
         {
-            BookCopyService.InsertBookCopy(bookId);
+            return View();
         }
-        return View(parameters.book);
+        else
+        {
+            BookEditService.InsertBook(parameters.book);
+            var bookId = BookSearch.Search(parameters.book).First().Id;
+            for (int i = 0; i < parameters.numberOfCopies; i++)
+            {
+                BookCopyService.InsertBookCopy(bookId);
+            }
+            return View(parameters.book);
+        }
     }
     
     [HttpGet]
@@ -45,7 +52,7 @@ public class BookController : Controller
     public ActionResult EditBook(BookModel replaceBook)
     {
         BookEditService.AlterBook(replaceBook.Id, replaceBook);
-        return RedirectToAction(nameof(Catalogue));
+        return RedirectToAction(nameof(SearchBooksResults));
     }
     
     [HttpPost]
