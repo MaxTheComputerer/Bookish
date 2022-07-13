@@ -9,8 +9,7 @@ public class MemberController : Controller
 {
     public IActionResult MemberList()
     {
-        using var context = new LibraryContext();
-        var members = context.Members.ToList();
+        var members = EditMembers.GetMemberList();
         return View(members);
     }
     
@@ -29,8 +28,7 @@ public class MemberController : Controller
     
     public ActionResult EditMember(int id)
     {
-        using var context = new LibraryContext();
-        MemberModel updateMember = context.Members.Single(m =>m.Id == id);
+        MemberModel updateMember = EditMembers.GetMemberFromId(id);
         return View(updateMember);
     }
     
@@ -61,7 +59,6 @@ public class MemberController : Controller
         {
             return View(search);
         }
-
         return RedirectToAction(nameof(SearchMembersResults), search);
     }
     

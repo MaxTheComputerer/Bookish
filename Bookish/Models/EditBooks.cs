@@ -2,26 +2,28 @@
 
 public class EditBooks
 {
+    static LibraryContext context = new LibraryContext();
+    public static List<BookModel> GetBookList()
+    {
+        var books = context.Books.ToList();
+        return books;
+    }
+    
+    public static BookModel GetBookFromId(int id)
+    {
+        BookModel book = context.Books.Single(b =>b.Id == id);
+        return book;
+    }
+        
     public static void InsertBooks(BookModel newbook)
     {
-        using var context = new LibraryContext();
-        var book = new BookModel();
-        foreach (var property in typeof(BookModel).GetProperties())
-        {
-            if (property.Name != "Id")
-            {
-                property.SetValue(book, property.GetValue(newbook));
-            }
-        }
-        context.Books.Add(book);
+        context.Books.Add(newbook);
         context.SaveChanges();
     }
 
     public static void AlterBooks(int id, BookModel replaceBook)
     {
-        using var context = new LibraryContext();
-        var originalBook = context.Books.Find(id);
-
+        BookModel originalBook = GetBookFromId(id);
         foreach (var property in typeof(BookModel).GetProperties())
         {
             if (property.Name != "Id")
@@ -34,8 +36,7 @@ public class EditBooks
     
     public static void DeleteBooks(int id)
     {
-        using var context = new LibraryContext();
-        var lostBook = context.Books.Find(id);
+        BookModel lostBook = GetBookFromId(id);
         context.Books.Remove(lostBook);
         context.SaveChanges();
     }

@@ -9,8 +9,7 @@ public class BookController : Controller
 {
     public IActionResult Catalogue()
     {
-        using var context = new LibraryContext();
-        var books = context.Books.ToList();
+        var books = EditBooks.GetBookList();
         return View(books);
     }
     
@@ -29,8 +28,7 @@ public class BookController : Controller
     [HttpGet]
     public ActionResult EditBook(int id)
     {
-        using var context = new LibraryContext();
-        BookModel updateBook = context.Books.Single(b =>b.Id == id);
+        BookModel updateBook = EditBooks.GetBookFromId(id);
         return View(updateBook);
     }
     
