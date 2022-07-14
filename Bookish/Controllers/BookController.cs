@@ -23,7 +23,7 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult AddBook(BookModel newBook)
     {
-        if (BookEditService.IsFormBlank(newBook))
+        if (BookSearchService.IsFormBlank(newBook))
         {
             return View();
         }
