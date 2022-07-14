@@ -7,7 +7,7 @@ public class BookController : Controller
 {
     public IActionResult Catalogue(string orderBy = "Author")
     {
-        var searchModel = new SearchBooksModel()
+        var searchModel = new SearchModel<BookModel>()
         {
             orderBy = orderBy,
             pageTitle = "Catalogue"
@@ -56,7 +56,7 @@ public class BookController : Controller
     }
 
     [HttpGet]
-    public IActionResult SearchBooksResults(SearchBooksModel search)
+    public IActionResult SearchBooksResults(SearchModel<BookModel> search)
     {
         ViewData["searchParams"] = search;
         ViewData["Title"] = search.pageTitle;

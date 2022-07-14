@@ -1,10 +1,7 @@
 @model List<MemberModel>
-@{
-    ViewData["Title"] = "Search Members Results";
-}
 
 <div class="text-center">
-    <h1 class="display-4">Search Members Results</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
 
 @Html.Partial("_MemberTable")

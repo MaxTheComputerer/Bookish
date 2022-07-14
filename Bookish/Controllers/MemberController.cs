@@ -5,11 +5,14 @@ namespace Bookish.Controllers;
 
 public class MemberController : Controller
 {
-    [HttpGet]
-    public IActionResult MemberList()
+    public IActionResult MemberList(string orderBy = "Name")
     {
-        var members = MemberEditService.GetMemberList();
-        return View(members);
+        var searchModel = new SearchModel<MemberModel>()
+        {
+            orderBy = orderBy,
+            pageTitle = "Member List"
+        };
+        return RedirectToAction(nameof(SearchMembersResults), searchModel);
     }
     
     [HttpGet]
@@ -50,21 +53,24 @@ public class MemberController : Controller
     {
         return View();
     }
-    
-    [HttpPost]
-    public IActionResult SearchMembers(MemberModel search)
+
+    [HttpGet]
+    public IActionResult SearchMembersResults(SearchModel<MemberModel> search)
     {
-        if (MemberSearchService.IsFormBlank(search))
+        ViewData["searchParams"] = search;
+        ViewData["Title"] = search.pageTitle;
+        if (search.searchParameters == null)
         {
-            return View(search);
+            search.searchParameters = new MemberModel();
         }
-        return RedirectToAction(nameof(SearchMembersResults), search);
-    }
-    
-    [HttpPost]
-    public IActionResult SearchMembersResults(MemberModel search)
-    {
-        var results = MemberSearchService.SearchForMember(search);
-        return View(results);
+        
+        if (search.orderBy != null)
+        {
+            return View(MemberSearch.Search(search.searchParameters, search.orderBy));
+        }
+        else
+        {
+            return View(MemberSearch.Search(search.searchParameters));
+        }
     }
 }

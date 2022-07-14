@@ -1,6 +1,6 @@
 ﻿@model string
 @{
-    var searchBookParam = ((SearchBooksModel)ViewData["searchParams"]).searchParameters;
+    var searchBookParam = ((SearchModel<BookModel>)ViewData["searchParams"]).searchParameters;
 }
 <th scope="col" class="sort-header">
     @Model

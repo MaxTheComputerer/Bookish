@@ -1,8 +1,8 @@
 namespace Bookish.Models;
 
-public class SearchBooksModel
+public class SearchModel<TModel>
 {
-    public BookModel searchParameters { get; set; }
+    public TModel searchParameters { get; set; }
     public string orderBy { get; set; }
     public string pageTitle { get; set; }
 }
