@@ -95,6 +95,16 @@ public class BookController : Controller
     }
     
     [HttpPost]
+    public ActionResult AddMultipleCopies(AddMultipleCopiesModel parameters)
+    {
+        for (int i = 0; i < parameters.numberOfCopies; i++)
+        {
+            BookCopyService.InsertBookCopy(parameters.bookId);
+        }
+        return RedirectToAction(nameof(ViewCopies), new { Id = parameters.bookId });
+    }
+    
+    [HttpPost]
     public ActionResult DeleteCopy(BookCopyModel copy)
     {
         var book = BookCopyService.GetBookFromCopy(copy.Id);

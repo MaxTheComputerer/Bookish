@@ -23,3 +23,9 @@ public class BookCopyResult
     public BookModel book { get; set; }
     public List<BookCopyModel> copies { get; set; }
 }
+
+public class AddMultipleCopiesModel
+{
+    public int bookId { get; set; }
+    public int numberOfCopies { get; set; }
+}
