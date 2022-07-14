@@ -29,3 +29,7 @@ body {
 .checkInOutButton {
   min-width: 50%;
 }
+
+.table {
+  vertical-align: middle;
+}

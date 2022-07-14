@@ -31,10 +31,20 @@
                         }
                     }
                     <td>
-                        <input type="button" value="View Copies" class="btn btn-primary" onclick="location.href='@Url.Action("ViewCopies", "Book", new { Id = book.Id })'" />
+                        <button type="button"
+                                class="btn btn-primary"
+                                onclick="location.href='@Url.Action("ViewCopies", "Book", new { Id = book.Id })'">
+                            <i class="bi bi-files"></i>
+                            View Copies
+                        </button>
                     </td>
                     <td>
-                        <input type="button" value="Edit" class="btn btn-primary" onclick="location.href='@Url.Action("EditBook", "Book", new { id = book.Id })'" />
+                        <button type="button"
+                                class="btn btn-secondary"
+                                onclick="location.href='@Url.Action("EditBook", "Book", new { id = book.Id })'">
+                            <i class="bi bi-pencil"></i>
+                            Edit
+                        </button>
                     </td>
                     <td>
                         <button type="button"
