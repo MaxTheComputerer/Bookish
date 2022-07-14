@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Bookish.Models;
 
 public class MemberEditService
@@ -39,5 +41,15 @@ public class MemberEditService
         var lostMember = GetMemberFromId(id);
         context.Members.Remove(lostMember);
         context.SaveChanges();
+    }
+    
+    public static List<BookCopyModel> GetLoans(int memberId)
+    {
+        var loans = context.BookCopies
+            .Where(c => c.Borrower.Id == memberId)
+            .Include(c => c.Book)
+            .ToList();
+
+        return loans;
     }
 }

@@ -1,0 +1,29 @@
+@model List<BookCopyModel>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Author</th>
+            <th scope="col">Title</th>
+            <th scope="col">Due date</th>
+            <th scope="col">Overdue by</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var loan in Model)
+        {
+            <tr class="@(loan.OverdueTime().Days >= 1 ? "table-danger" : "")">
+                
+                <td>@loan.Book.Author</td>
+                <td>@loan.Book.Title</td>
+                <td>@loan.DueDate</td>
+                <td>@(loan.OverdueTime().Days >= 1 ? $"{loan.OverdueTime().Days} days" : "")</td>
+                
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
