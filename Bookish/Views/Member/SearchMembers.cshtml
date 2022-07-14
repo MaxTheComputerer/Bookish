@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Search</h2>
-    @using (Html.BeginForm("SearchMembers", "Member", FormMethod.Post))
+    @using (Html.BeginForm("SearchMembersResults", "Member", FormMethod.Post))
     {
         foreach (var property in typeof(MemberModel).GetProperties())
         {
