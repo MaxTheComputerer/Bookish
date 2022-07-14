@@ -14,22 +14,9 @@ public class BookEditService
         BookModel book = context.Books.Single(b =>b.Id == id);
         return book;
     }
-
-    public static BookModel nullConvert(BookModel book)
-    {
-        foreach (var property in typeof(BookModel).GetProperties())
-        {
-            if (property.GetValue(book) is null)
-            {
-                property.SetValue(book, " ");
-            }
-        }
-        return book;
-    }
-        
+    
     public static void InsertBook(BookModel newBook)
     {
-        newBook = nullConvert(newBook);
         context.Books.Add(newBook);
         context.SaveChanges();
     }
@@ -44,7 +31,6 @@ public class BookEditService
                 property.SetValue(originalBook, property.GetValue(replaceBook));
             }
         }
-        originalBook = nullConvert(originalBook);
         context.SaveChanges();
     }
     

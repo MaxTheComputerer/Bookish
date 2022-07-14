@@ -17,21 +17,8 @@ public class MemberEditService
         return member;
     }
 
-    public static MemberModel nullConvert(MemberModel member)
-    {
-        foreach (var property in typeof(MemberModel).GetProperties())
-        {
-            if (property.GetValue(member) is null)
-            {
-                property.SetValue(member, " ");
-            }
-        }
-        return member;
-    }
-    
     public static void InsertMember(MemberModel newMember)
     {
-        newMember = nullConvert(newMember);
         context.Members.Add(newMember);
         context.SaveChanges();
     }
@@ -46,7 +33,6 @@ public class MemberEditService
                 property.SetValue(originalMember, property.GetValue(replaceMember));
             }
         }
-        originalMember = nullConvert(originalMember);
         context.SaveChanges();
     }
     
