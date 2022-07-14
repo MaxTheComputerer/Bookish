@@ -2,7 +2,7 @@
 
 public class BookEditService
 {
-    static LibraryContext context = new LibraryContext();
+    static readonly LibraryContext context = new LibraryContext();
     public static List<BookModel> GetBookList()
     {
         var books = context.Books.ToList();

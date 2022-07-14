@@ -21,6 +21,20 @@
                 <td>@loan.Book.Title</td>
                 <td>@loan.DueDate</td>
                 <td>@(loan.OverdueTime().Days >= 1 ? $"{loan.OverdueTime().Days} days" : "")</td>
+                <td>
+                    @using (Html.BeginForm("RenewCopy", "Book", FormMethod.Post))
+                    {
+                        <input type="hidden" id="checkInId" name="Id" value=@loan.Id>
+                        <button type="submit" class="btn btn-primary">Renew</button>
+                    }
+                </td>
+                <td>    
+                    @using (Html.BeginForm("CheckInCopy", "Book", FormMethod.Post))
+                    {
+                        <input type="hidden" id="checkInId" name="Id" value=@loan.Id>
+                        <button type="submit" class="btn btn-primary">Check in</button>
+                    }
+                </td>
                 
             </tr>
         }

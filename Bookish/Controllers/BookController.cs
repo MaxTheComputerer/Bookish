@@ -122,6 +122,14 @@ public class BookController : Controller
     }
     
     [HttpPost]
+    public ActionResult RenewCopy(BookCopyModel copy)
+    {
+        BookCopyModel loan = BookCopyService.GetCopyFromId(copy.Id);
+        BookCopyService.RenewCopy(loan.Id);
+        return RedirectToAction("ViewLoans", "Member", new { Id = loan.Borrower!.Id });
+    }
+    
+    [HttpPost]
     public ActionResult CheckOutCopy(CheckOutCopyModel checkOutModel)
     {
         using var context = new LibraryContext();
