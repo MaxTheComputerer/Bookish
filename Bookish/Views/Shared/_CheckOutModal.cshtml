@@ -1,4 +1,5 @@
-﻿<!-- Modal -->
+﻿@model  Bookish.Models.CheckOutModel
+<!-- Modal -->
 <div class="modal fade" id="checkOutModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,9 +16,10 @@
                         <label for="borrower" class="form-label">Borrower</label>
                         <select class="form-select" id="borrower" name="BorrowerId">
                             <option disabled selected>Choose borrower</option>
-                            <option value="1">Member1</option>
-                            <option value="2">Member2</option>
-                            <option value="3">Member3</option>
+                            @foreach (var member in Model.Members)
+                            {
+                                <option value="@member.Id">@member.Name</option>
+                            }
                         </select>
                     </div>
                     

@@ -1,4 +1,4 @@
-﻿@model List<BookCopyModel>
+﻿@model CheckOutModel
 
 @Html.Partial("_CheckOutModal")
 
@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var copy in Model)
+        @foreach (var copy in Model.Book.copies)
         {
             <tr class="@(!copy.IsAvailable() && copy.OverdueTime().Days >= 1 ? "table-danger" : "")">
                 

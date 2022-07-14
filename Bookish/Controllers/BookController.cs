@@ -88,7 +88,10 @@ public class BookController : Controller
         {
             return RedirectToAction(nameof(Catalogue));
         }
-        var result = BookCopyService.GetCopies(book);
+        var result = new CheckOutModel()
+        {
+            Book = BookCopyService.GetCopies(book),
+        };
         return View(result);
     }
 

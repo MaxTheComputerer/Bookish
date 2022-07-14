@@ -1,18 +1,18 @@
-@model Bookish.Models.BookCopyResult
+@model Bookish.Models.CheckOutModel
 @{
     ViewData["Title"] = "View Copies";
 }
 
-@Html.Partial("_AddMultipleCopiesModal", new { Title = Model.book.Title, BookId = Model.book.Id})
+@Html.Partial("_AddMultipleCopiesModal", new { Title = Model.Book.book.Title, BookId = Model.Book.book.Id})
 
 <div class="text-center mb-4">
-    <h1 class="display-4">Copies of @Model.book.Title</h1>
+    <h1 class="display-4">Copies of @Model.Book.book.Title</h1>
 </div>
 
 <div class="mb-4">
     @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post, new {@style = "display: inline;"}))
     {
-        <input type="hidden" id="addCopyId" name="book.Id" value=@Model.book.Id>
+        <input type="hidden" id="addCopyId" name="book.Id" value=@Model.Book.book.Id>
         <input type="hidden" id="addCopyNum" name="numberOfCopies" value="1">
         <button type="submit" class="btn btn-primary">Add copy</button>
     }
@@ -26,4 +26,4 @@
     </button>
 </div>
 
-@Html.Partial("_CopyTable", Model.copies)
+@Html.Partial("_CopyTable")
