@@ -4,6 +4,8 @@
     <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
 
+@Html.Partial("_DeleteModal", new {Action = "DeleteBook", Controller = "Book", Type = "book"})
+
 <div class="container">
     <table class="table table-hover">
         <thead>
@@ -34,7 +36,7 @@
                         <button type="button"
                                 class="btn btn-primary"
                                 onclick="location.href='@Url.Action("ViewCopies", "Book", new { Id = book.Id })'">
-                            <i class="bi bi-files"></i>
+                            <i class="bi bi-book"></i>
                             View Copies
                         </button>
                     </td>

@@ -1,0 +1,59 @@
+
+@Html.Partial("_DeleteModal", new {Action = "DeleteBook", Controller = "Book", Type = "book"})
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            @foreach (var property in typeof(BookModel).GetProperties())
+            {
+                <th scope="col">@property.Name</th>
+            }
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <th scope="row">@book.Id</th>
+                @foreach (var property in typeof(BookModel).GetProperties())
+                {
+                    if (property.Name != "Id")
+                    {
+                        <td>@property.GetValue(book)</td>
+                    }
+                }
+                <td>
+                    <button type="button"
+                            class="btn btn-primary"
+                            onclick="location.href='@Url.Action("ViewCopies", "Book", new { Id = book.Id })'">
+                        <i class="bi bi-book"></i>
+                        View Copies
+                    </button>
+                </td>
+                <td>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            onclick="location.href='@Url.Action("EditBook", "Book", new { id = book.Id })'">
+                        <i class="bi bi-pencil"></i>
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            onclick="setValue('deleteFormId', @book.Id); setHtml('deleteFormName', '@book.Title')">
+                        <i class="bi bi-trash-fill"></i>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
