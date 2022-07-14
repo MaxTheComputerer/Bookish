@@ -23,10 +23,3 @@ public class BookCopyResult
     public BookModel book { get; set; }
     public List<BookCopyModel> copies { get; set; }
 }
-
-public class CheckOutCopyModel
-{
-    public int Id { get; set; }
-    public int BorrowerId { get; set; }
-    public DateTime DueDate { get; set; }
-}
