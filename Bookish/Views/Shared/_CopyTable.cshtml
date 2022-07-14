@@ -1,5 +1,7 @@
 ﻿@model List<BookCopyModel>
 
+@Html.Partial("_CheckOutModal")
+
 <div class="container">
     <table class="table">
         <thead>
@@ -23,14 +25,7 @@
                 {
                     <td>@copy.Borrower.Name</td>
                     <td>@copy.DueDate</td>
-                    @if (copy.OverdueTime().Days >= 1)
-                    {
-                        <td>@copy.OverdueTime().Days days</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
+                    <td>@(copy.OverdueTime().Days >= 1 ? $"{copy.OverdueTime().Days} days" : "")</td>
                     
                     <td>
                         @using (Html.BeginForm("CheckInCopy", "Book", FormMethod.Post))
@@ -62,47 +57,3 @@
         </tbody>
     </table>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="checkOutModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="checkOutModalLabel">Check out copy</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            @using (Html.BeginForm("CheckOutCopy", "Book", FormMethod.Post))
-            {
-                <input type="hidden" id="checkOutFormId" name="Id" value="">
-                <div class="modal-body">
-                    
-                    <div class="mb-3">
-                        <label for="borrower" class="form-label">Borrower</label>
-                        <select class="form-select" id="borrower" name="BorrowerId">
-                            <option disabled selected>Choose borrower</option>
-                            <option value="1">Member1</option>
-                            <option value="2">Member2</option>
-                            <option value="3">Member3</option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="dueDate" class="form-label">Due date</label>
-                        <input type="date" class="form-control" id="dueDate" name="DueDate" value="@DateTime.Today.AddDays(7).ToString("yyyy-MM-dd")">
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Check out</button>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-
-<script>
-function setModalValue(id) {
-  document.getElementById("checkOutFormId").value = id;
-}
-</script>
