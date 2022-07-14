@@ -72,7 +72,7 @@ public class BookController : Controller
         return View(results);
     }
 
-    //[HttpPost]
+    [HttpGet]
     public IActionResult ViewCopies()
     {
         //temp
