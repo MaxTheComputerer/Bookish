@@ -25,3 +25,7 @@ body {
 .sort-header form {
   display: inline-block;
 }
+
+.checkInOutButton {
+  min-width: 50%;
+}

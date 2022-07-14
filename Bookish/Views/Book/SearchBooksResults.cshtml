@@ -37,11 +37,14 @@
                         <input type="button" value="Edit" class="btn btn-primary" onclick="location.href='@Url.Action("EditBook", "Book", new { id = book.Id })'" />
                     </td>
                     <td>
-                        @using (Html.BeginForm("DeleteBook", "Book", FormMethod.Post))
-                        {
-                            <input type="hidden" id="id" name="id" value=@book.Id>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        }
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
+                                onclick="setValue('deleteFormId', @book.Id); setHtml('deleteFormName', '@book.Title')">
+                            <i class="bi bi-trash-fill"></i>
+                            Delete
+                        </button>
                     </td>
                 </tr>
             }
