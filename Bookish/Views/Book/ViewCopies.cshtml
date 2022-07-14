@@ -9,7 +9,7 @@
     <h1 class="display-4">Copies of @Model.Book.book.Title</h1>
 </div>
 
-<div class="mb-4">
+<div class="container mb-4">
     @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post, new {@style = "display: inline;"}))
     {
         <input type="hidden" id="addCopyId" name="book.Id" value=@Model.Book.book.Id>
