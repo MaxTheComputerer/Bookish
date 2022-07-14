@@ -5,6 +5,7 @@ namespace Bookish.Controllers;
 
 public class MemberController : Controller
 {
+    [HttpGet]
     public IActionResult MemberList(string orderBy = "Name")
     {
         var searchModel = new SearchModel<MemberModel>()
@@ -28,6 +29,7 @@ public class MemberController : Controller
         return View(newMember);
     }
     
+    [HttpGet]
     public ActionResult EditMember(int id)
     {
         MemberModel updateMember = MemberEditService.GetMemberFromId(id);

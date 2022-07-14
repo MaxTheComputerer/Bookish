@@ -13,37 +13,38 @@
             {
                 @Html.Partial("SearchBooksResultTableHeader", property.Name)
             }
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var book in Model)
-        {
-            <tr>
-                <th scope="row">@book.Id</th>
-                @foreach (var property in typeof(BookModel).GetProperties())
-                {
-                    if (property.Name != "Id")
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <th scope="row">@book.Id</th>
+                    @foreach (var property in typeof(BookModel).GetProperties())
                     {
-                        <td>@property.GetValue(book)</td>
+                        if (property.Name != "Id")
+                        {
+                            <td>@property.GetValue(book)</td>
+                        }
                     }
-                }
-                
-                <td>
-                    @using (Html.BeginForm("EditBook", "Book", FormMethod.Get))
-                    {
-                        <input type="hidden" id="id" name="id" value=@book.Id>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    }
-                </td>
-                <td>
-                    @using (Html.BeginForm("DeleteBook", "Book", FormMethod.Post))
-                    {
-                        <input type="hidden" id="id" name="id" value=@book.Id>
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                    }
-                </td>
-            </tr>
-        }
+                    <td>
+                        <input type="button" value="View Copies" class="btn btn-primary" onclick="location.href='@Url.Action("ViewCopies", "Book", new { Id = book.Id })'" />
+                    </td>
+                    <td>
+                        <input type="button" value="Edit" class="btn btn-primary" onclick="location.href='@Url.Action("EditBook", "Book", new { id = book.Id })'" />
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("DeleteBook", "Book", FormMethod.Post))
+                        {
+                            <input type="hidden" id="id" name="id" value=@book.Id>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

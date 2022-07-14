@@ -5,6 +5,7 @@ namespace Bookish.Controllers;
 
 public class BookController : Controller
 {
+    [HttpGet]
     public IActionResult Catalogue(string orderBy = "Author")
     {
         var searchModel = new SearchModel<BookModel>()
