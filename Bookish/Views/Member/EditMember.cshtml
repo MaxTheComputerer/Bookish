@@ -1,0 +1,32 @@
+@model Bookish.Models.MemberModel
+@{
+    ViewData["Title"] = "Edit Member";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit a Member</h1>
+    @if (Model != null)
+    {
+        <div class="alert alert-success" role="alert">
+            Successfully edited @Model.Name!
+        </div>
+    }
+
+    <div class="col">
+        @using (Html.BeginForm("EditMember", "Member", FormMethod.Post))
+        {
+            @foreach (var property in typeof(MemberModel).GetProperties())
+            {
+                if (property.Name != "Id")
+                {
+                    <div class="mb-3">
+                        <label for=@property.Name class="form-label">@property.Name</label>
+                        <input type="text" class="form-control" id=@property.Name name=@property.Name value="@property.GetValue(Model)">
+                    </div>
+                }
+            }
+            <input type="hidden" id="id" name = "Id" value="@Model.Id">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        }
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@model List<MemberModel>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                @foreach (var property in typeof(MemberModel).GetProperties())
+                {
+                    <th scope="col">@property.Name</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <th scope="row">@member.Id</th>
+                    @foreach (var property in typeof(MemberModel).GetProperties())
+                    {
+                        if (property.Name != "Id")
+                        {
+                            <td>@property.GetValue(member)</td>
+                        }
+                    }
+                    <td>
+                        @using (Html.BeginForm("EditMember", "Member", FormMethod.Get))
+                        {
+                            <input type="hidden" id="id" name="id" value=@member.Id>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("DeleteMember", "Member", FormMethod.Post))
+                        {
+                            <input type="hidden" id="id" name="id" value=@member.Id>
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

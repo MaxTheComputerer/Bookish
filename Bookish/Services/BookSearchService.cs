@@ -2,7 +2,7 @@
 
 namespace Bookish.Models;
 
-public class SearchModel
+public class BookSearchService
 {
     // Tests if <searchParameter> is contained in <property> of <book> 
     private static bool BookHasMatchingProperty(BookModel book, PropertyInfo property, string searchParameter)
@@ -13,9 +13,7 @@ public class SearchModel
         {
             return false;
         }
-
         var bookPropertyWords = ((string)bookPropertyValue).ToLower().Split();
-
         return searchTerms.All(word => bookPropertyWords.Contains(word.ToLower()));
     }
     
@@ -24,14 +22,12 @@ public class SearchModel
         using var context = new LibraryContext();
         var books = context.Books.ToList();
 
-        // Iterate over all possible properties of a book, except its Id
         foreach (var property in typeof(BookModel).GetProperties())
         {
             var parameter = property.GetValue(searchParameters);
             if (property.Name != "Id" && parameter != null)
             {
                 var parameterString = (string) parameter;
-                // Filter to only books which match the user's search
                 books = books.Where(book => BookHasMatchingProperty(book, property, parameterString)).ToList();
             }
         }
