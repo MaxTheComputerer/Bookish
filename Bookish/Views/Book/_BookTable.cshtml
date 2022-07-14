@@ -26,18 +26,10 @@
                     }
                 }
                 <td>
-                    @using (Html.BeginForm("ViewCopies", "Book", FormMethod.Get))
-                    {
-                        <input type="hidden" id="id" name="Id" value=@book.Id>
-                        <button type="submit" class="btn btn-primary">View Copies</button>
-                    }
+                    <input type="button" value="View Copies" class="btn btn-primary" onclick="location.href='@Url.Action("ViewCopies", "Book", new { Id = book.Id })'" />
                 </td>
                 <td>
-                    @using (Html.BeginForm("EditBook", "Book", FormMethod.Get))
-                    {
-                        <input type="hidden" id="id" name="id" value=@book.Id>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    }
+                    <input type="button" value="Edit" class="btn btn-primary" onclick="location.href='@Url.Action("EditBook", "Book", new { id = book.Id })'" />
                 </td>
                 <td>
                     @using (Html.BeginForm("DeleteBook", "Book", FormMethod.Post))
