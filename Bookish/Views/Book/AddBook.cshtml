@@ -21,10 +21,14 @@
                 {
                     <div class="mb-3">
                         <label for=@property.Name class="form-label">@property.Name</label>
-                        <input type="text" class="form-control" id=@property.Name name=@property.Name>
+                        <input type="text" class="form-control" id=@property.Name name="book.@property.Name">
                     </div>
                 }
             }
+            
+            <label for="numberofCopies" class="form-label">Number of copies</label>
+            <input type="number" class="form-control" name="numberofCopies" value="1">
+
             <button type="submit" class="btn btn-primary">Submit</button>
         }
     </div>
