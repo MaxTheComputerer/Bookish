@@ -59,7 +59,7 @@ public class BookCopyService
         copy.DueDate = dueDate;
         context.SaveChanges();
     }
-    
+
     public static void RenewCopy(int copyId)
     {
         var context = new LibraryContext();
