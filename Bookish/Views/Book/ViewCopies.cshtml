@@ -8,7 +8,7 @@
 </div>
 
 <div class="container mb-4">
-    @using (Html.BeginForm("AddCopy", "Home", FormMethod.Post))
+    @using (Html.BeginForm("AddCopy", "Book", FormMethod.Post))
     {
         <input type="hidden" id="addCopyId" name="Id" value=@Model.book.Id>
         <button type="submit" class="btn btn-primary">Add copy</button>

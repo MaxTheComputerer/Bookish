@@ -33,7 +33,7 @@
                     }
                     
                     <td>
-                        @using (Html.BeginForm("CheckInCopy", "Home", FormMethod.Post))
+                        @using (Html.BeginForm("CheckInCopy", "Book", FormMethod.Post))
                         {
                             <input type="hidden" id="checkInId" name="Id" value=@copy.Id>
                             <button type="submit" class="btn btn-primary">Check in</button>
@@ -51,7 +51,7 @@
                 }
                 
                 <td>
-                    @using (Html.BeginForm("DeleteCopy", "Home", FormMethod.Post))
+                    @using (Html.BeginForm("DeleteCopy", "Book", FormMethod.Post))
                     {
                         <input type="hidden" id="deleteId" name="id" value=@copy.Id>
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -71,7 +71,7 @@
                 <h5 class="modal-title" id="checkOutModalLabel">Check out copy</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            @using (Html.BeginForm("CheckOutCopy", "Home", FormMethod.Post))
+            @using (Html.BeginForm("CheckOutCopy", "Book", FormMethod.Post))
             {
                 <input type="hidden" id="checkOutFormId" name="Id" value="">
                 <div class="modal-body">
