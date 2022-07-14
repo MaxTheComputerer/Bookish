@@ -73,17 +73,47 @@ public class BookController : Controller
     }
 
     [HttpGet]
-    public IActionResult ViewCopies()
+    public IActionResult ViewCopies(BookModel book)
     {
-        //temp
-        var book = BookSearchService.SearchForBook(new BookModel() { Author = "George" }).First();
-            
-        var copies = BookCopyService.GetCopies(book);
-        var result = new BookCopyResult()
+        if (book == null || book.Id == null)
         {
-            book = book,
-            copies = copies
-        };
+            return RedirectToAction(nameof(Catalogue));
+        }
+        var result = BookCopyService.GetCopies(book);
         return View(result);
+    }
+    
+    [HttpPost]
+    public ActionResult AddCopy(BookModel book)
+    {
+        BookCopyService.InsertBookCopy(book.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+    }
+    
+    [HttpPost]
+    public ActionResult DeleteCopy(BookCopyModel copy)
+    {
+        var book = BookCopyService.GetBookFromCopy(copy.Id);
+        BookCopyService.DeleteCopy(copy.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+    }
+    
+    [HttpPost]
+    public ActionResult CheckInCopy(BookCopyModel copy)
+    {
+        BookCopyService.CheckInCopy(copy.Id);
+        var book = BookCopyService.GetBookFromCopy(copy.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+    }
+    
+    [HttpPost]
+    public ActionResult CheckOutCopy(CheckOutCopyModel checkOutModel)
+    {
+        using var context = new LibraryContext();
+        var member = context.Members.Find(checkOutModel.BorrowerId);
+
+        BookCopyService.CheckOutCopy(checkOutModel.Id, member, checkOutModel.DueDate);
+        var book = BookCopyService.GetBookFromCopy(checkOutModel.Id);
+        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
     }
 }

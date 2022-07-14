@@ -1,5 +1,7 @@
 ﻿@model List<BookCopyModel>
 
+@Html.Partial("_CheckOutModal")
+
 <div class="container">
     <table class="table">
         <thead>
@@ -7,23 +9,49 @@
             <th scope="col">Id</th>
             <th scope="col">Borrower</th>
             <th scope="col">Due date</th>
+            <th scope="col">Overdue by</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach (var copy in Model)
         {
-            <tr>
+            <tr class="@(!copy.IsAvailable() && copy.OverdueTime().Days >= 1 ? "table-danger" : "")">
+                
                 <th scope="row">@copy.Id</th>
+                
                 @if (!copy.IsAvailable())
                 {
                     <td>@copy.Borrower.Name</td>
                     <td>@copy.DueDate</td>
+                    <td>@(copy.OverdueTime().Days >= 1 ? $"{copy.OverdueTime().Days} days" : "")</td>
+                    
+                    <td>
+                        @using (Html.BeginForm("CheckInCopy", "Book", FormMethod.Post))
+                        {
+                            <input type="hidden" id="checkInId" name="Id" value=@copy.Id>
+                            <button type="submit" class="btn btn-primary">Check in</button>
+                        }
+                    </td>
                 }
                 else
                 {
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkOutModal" data-copy-id="@copy.Id" onclick="setModalValue(@copy.Id)">Check out</button>
+                    </td>
                 }
+                
+                <td>
+                    @using (Html.BeginForm("DeleteCopy", "Book", FormMethod.Post))
+                    {
+                        <input type="hidden" id="deleteId" name="id" value=@copy.Id>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
             </tr>
         }
         </tbody>
