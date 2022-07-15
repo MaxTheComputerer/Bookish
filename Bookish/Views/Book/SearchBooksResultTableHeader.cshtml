@@ -3,7 +3,7 @@
     var searchBookParam = ((SearchModel<BookModel>)ViewData["searchParams"]).searchParameters;
 }
 <th scope="col" class="sort-header">
-    @Model
+    @DisplayService.FormatPropertyName(Model)
     @using (Html.BeginForm("SearchBooksResults", "Book", FormMethod.Get))
     {
         @foreach (var property in typeof(BookModel).GetProperties().Where(p => p.Name != "Id"))

@@ -28,7 +28,10 @@
                 {
                     if (property.Name != "Id")
                     {
-                        <td>@property.GetValue(member)</td>
+                        <td>@DisplayService.FormatPropertyValue(
+                                property.Name,
+                                (property.GetValue(member) ?? "").ToString()
+                                )</td>
                     }
                 }
                 <td>
@@ -36,7 +39,7 @@
                             class="btn custom-btn-primary"
                             onclick="location.href='@Url.Action("ViewLoans", "Member", new { id = member.Id })'">
                         <i class="bi bi-book"></i>
-                        Edit
+                        View Loans
                     </button>
                 </td>
                 <td>

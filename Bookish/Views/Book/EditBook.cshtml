@@ -4,9 +4,15 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Edit a Book</h1>
-    <div> Book ID: @Model.Id </div>
+    <h1 class="display-4">Edit book</h1>
+    <br/>
+    <div class="lead"> Book ID: @Model.Id </div>
+</div>
+<br/>
 
+
+<div class="row">
+    <div class="col"></div>
     <div class="col">
         @using (Html.BeginForm("EditBook", "Book", FormMethod.Post))
         {
@@ -24,4 +30,5 @@
             <button type="submit" class="btn custom-btn-primary">Submit</button>
         }
     </div>
+    <div class="col"></div>
 </div>

@@ -4,9 +4,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Edit a Member</h1>
-    <div> Member ID: @Model.Id </div>
+    <h1 class="display-4">Edit member</h1>
+    <br/>
+    <div class="lead"> Member ID: @Model.Id </div>
+</div>
+<br/>
 
+<div class="row">
+    <div class="col"></div>
     <div class="col">
         @using (Html.BeginForm("EditMember", "Member", FormMethod.Post))
         {
@@ -16,7 +21,7 @@
                 {
                     <div class="mb-3">
                         <label for="@property.Name" class="form-label">@DisplayService.FormatPropertyName(property.Name)</label>
-                        <input type="text" class="form-control" id="@property.Name" name="@property.Name" value="@property.GetValue(Model)">
+                        <input type="@DisplayService.GetInputType(property.Name)" class="form-control" id="@property.Name" name="@property.Name" value="@property.GetValue(Model)">
                     </div>
                 }
             }
@@ -24,4 +29,5 @@
             <button type="submit" class="btn custom-btn-primary">Submit</button>
         }
     </div>
+    <div class="col"></div>
 </div>

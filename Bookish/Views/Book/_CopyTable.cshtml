@@ -25,7 +25,12 @@
                 @if (!copy.IsAvailable())
                 {
                     <td>@copy.Borrower.Name</td>
-                    <td>@copy.DueDate</td>
+                    <td>
+                        @if (copy.DueDate != null)
+                        {
+                            @copy.DueDate.Value.ToShortDateString()
+                        }
+                    </td>
                     <td>@(copy.OverdueTime().Days >= 1 ? $"{copy.OverdueTime().Days} days" : "")</td>
                     
                     <td>
