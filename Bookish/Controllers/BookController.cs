@@ -23,7 +23,7 @@ public class BookController : Controller
     }
     
     [HttpPost]
-    public ActionResult AddBook(MultipleCopiesModel parameters)
+    public ActionResult AddBook(AddCopiesModel parameters)
     {
         BookEditService.InsertBook(parameters.book);
         var bookId = BookSearchService.SearchForBook(parameters.book).First().Id;
@@ -91,16 +91,9 @@ public class BookController : Controller
         var result = BookCopyService.GetCopies(book);
         return View(result);
     }
-    
+
     [HttpPost]
-    public ActionResult AddCopy(BookModel book)
-    {
-        BookCopyService.InsertBookCopy(book.Id);
-        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
-    }
-    
-    [HttpPost]
-    public ActionResult AddMultipleCopies(MultipleCopiesModel parameters)
+    public ActionResult AddCopies(AddCopiesModel parameters)
     {
         for (int i = 0; i < parameters.numberOfCopies; i++)
         {

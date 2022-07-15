@@ -10,9 +10,10 @@
 </div>
 
 <div class="mb-4">
-    @using (Html.BeginForm("AddCopy", "Book", FormMethod.Post, new {@style = "display: inline;"}))
+    @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post, new {@style = "display: inline;"}))
     {
-        <input type="hidden" id="addCopyId" name="Id" value=@Model.book.Id>
+        <input type="hidden" id="addCopyId" name="book.Id" value=@Model.book.Id>
+        <input type="hidden" id="addCopyNum" name="numberOfCopies" value="1">
         <button type="submit" class="btn btn-primary">Add copy</button>
     }
     

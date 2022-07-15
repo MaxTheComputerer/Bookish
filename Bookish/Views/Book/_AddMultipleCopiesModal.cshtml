@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="addCopiesModalLabel">Add multiple copies of @Model.Title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            @using (Html.BeginForm("AddMultipleCopies", "Book", FormMethod.Post))
+            @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post))
             {
                 <div class="modal-body">
                     <div class="mb-3">
