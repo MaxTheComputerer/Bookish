@@ -8,17 +8,20 @@
 <div class="text-center mb-4">
     <h1 class="display-4">Copies of @Model.Book.book.Title</h1>
 </div>
-
-<div class="mb-4">
+<br/>
+<div class="container mb-4">
     @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post, new {@style = "display: inline;"}))
     {
         <input type="hidden" id="addCopyId" name="book.Id" value=@Model.Book.book.Id>
         <input type="hidden" id="addCopyNum" name="numberOfCopies" value="1">
-        <button type="submit" class="btn btn-primary">Add copy</button>
+        <button type="submit" class="btn custom-btn-primary">
+            <i class="bi bi-plus-lg"></i>
+            Add copy
+        </button>
     }
     
     <button type="button"
-            class="btn btn-primary"
+            class="btn custom-btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#addCopiesModal">
         <i class="bi bi-plus-lg"></i>

@@ -1,6 +1,7 @@
 ﻿@model CheckOutModel
 
 @Html.Partial("_CheckOutModal")
+@Html.Partial("_DeleteModal", new {Action = "DeleteCopy", Controller = "Book", Type = "copy"})
 
 <div class="container">
     <table class="table">
@@ -24,14 +25,22 @@
                 @if (!copy.IsAvailable())
                 {
                     <td>@copy.Borrower.Name</td>
-                    <td>@copy.DueDate</td>
+                    <td>
+                        @if (copy.DueDate != null)
+                        {
+                            @copy.DueDate.Value.ToShortDateString()
+                        }
+                    </td>
                     <td>@(copy.OverdueTime().Days >= 1 ? $"{copy.OverdueTime().Days} days" : "")</td>
                     
                     <td>
                         @using (Html.BeginForm("CheckInCopy", "Book", FormMethod.Post))
                         {
                             <input type="hidden" id="checkInId" name="Id" value=@copy.Id>
-                            <button type="submit" class="btn btn-primary">Check in</button>
+                            <button type="submit" class="btn btn-secondary checkInOutButton">
+                                <i class="bi bi-box-arrow-in-down"></i>
+                                Check in
+                            </button>
                         }
                     </td>
                 }
@@ -41,16 +50,26 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkOutModal" data-copy-id="@copy.Id" onclick="setModalValue(@copy.Id)">Check out</button>
+                        <button type="button"
+                                class="btn custom-btn-primary checkInOutButton"
+                                data-bs-toggle="modal"
+                                data-bs-target="#checkOutModal"
+                                onclick="setValue('checkOutFormId', @copy.Id)">
+                            <i class="bi bi-box-arrow-up"></i>
+                            Check out
+                        </button>
                     </td>
                 }
                 
                 <td>
-                    @using (Html.BeginForm("DeleteCopy", "Book", FormMethod.Post))
-                    {
-                        <input type="hidden" id="deleteId" name="id" value=@copy.Id>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    }
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            onclick="setValue('deleteFormId', @copy.Id); setHtml('deleteFormName', 'copy #@copy.Id of this book')">
+                        <i class="bi bi-trash-fill"></i>
+                        Delete
+                    </button>
                 </td>
             </tr>
         }
