@@ -24,6 +24,12 @@ public class BookCopyResult
     public List<BookCopyModel> copies { get; set; }
 }
 
+public class CheckOutModel
+{
+    public BookCopyResult Book { get; set; }
+    public List<MemberModel> Members = MemberEditService.GetMemberList();
+}
+
 public class AddCopiesModel
 {
     public BookModel book { get; set; }

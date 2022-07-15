@@ -88,7 +88,10 @@ public class BookController : Controller
         {
             return RedirectToAction(nameof(Catalogue));
         }
-        var result = BookCopyService.GetCopies(book);
+        var result = new CheckOutModel()
+        {
+            Book = BookCopyService.GetCopies(book),
+        };
         return View(result);
     }
 
@@ -116,6 +119,14 @@ public class BookController : Controller
         BookCopyService.CheckInCopy(copy.Id);
         var book = BookCopyService.GetBookFromCopy(copy.Id);
         return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+    }
+    
+    [HttpPost]
+    public ActionResult RenewCopy(BookCopyModel copy)
+    {
+        BookCopyModel loan = BookCopyService.GetCopyFromId(copy.Id);
+        BookCopyService.RenewCopy(loan.Id);
+        return RedirectToAction("ViewLoans", "Member", new { Id = loan.Borrower!.Id });
     }
     
     [HttpPost]

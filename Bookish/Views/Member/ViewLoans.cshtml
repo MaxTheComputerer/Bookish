@@ -1,0 +1,10 @@
+@model  List<BookCopyModel>
+@{
+    ViewData["Title"] = "View Loans";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-4">Books currently on loan </h1> 
+</div>
+
+@Html.Partial("_LoanTable")

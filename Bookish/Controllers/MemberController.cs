@@ -75,4 +75,15 @@ public class MemberController : Controller
             return View(MemberSearch.Search(search.searchParameters));
         }
     }
+    
+    [HttpGet]
+    public IActionResult ViewLoans(int id)
+    {
+        if (id == null || MemberEditService.GetMemberFromId(id) == null)
+        {
+            return RedirectToAction(nameof(MemberList));
+        }
+        var result = MemberEditService.GetLoans(id);
+        return View(result);
+    }
 }
