@@ -25,7 +25,7 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult AddMember(MemberModel newMember)
     {
-        if (MemberSearchService.IsFormBlank(newMember))
+        if (DatabaseSearch.IsFormBlank(newMember))
         {
             return View();
         }
@@ -46,7 +46,7 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult EditMember(MemberModel replaceMember)
     {
-        if (MemberSearchService.IsFormBlank(replaceMember))
+        if (DatabaseSearch.IsFormBlank(replaceMember))
         {
             return View(replaceMember);
         }

@@ -25,7 +25,7 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult AddBook(AddCopiesModel parameters)
     {
-        if (BookEditService.IsFormBlank(parameters.book))
+        if (DatabaseSearch.IsFormBlank(parameters.book))
         {
             return View();
         }
@@ -51,7 +51,7 @@ public class BookController : Controller
     [HttpPost]
     public ActionResult EditBook(BookModel replaceBook)
     {
-        if (BookSearchService.IsFormBlank(replaceBook))
+        if (DatabaseSearch.IsFormBlank(replaceBook))
         {
             return View(replaceBook);
         }
