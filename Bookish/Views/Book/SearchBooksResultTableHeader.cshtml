@@ -1,0 +1,18 @@
+﻿@model string
+@{
+    var searchBookParam = ((SearchModel<BookModel>)ViewData["searchParams"]).searchParameters;
+}
+<th scope="col" class="sort-header">
+    @Model
+    @using (Html.BeginForm("SearchBooksResults", "Book", FormMethod.Get))
+    {
+        @foreach (var property in typeof(BookModel).GetProperties().Where(p => p.Name != "Id"))
+        {
+            var searchParam = (property.GetValue(searchBookParam) ?? "").ToString();
+            <input type="hidden" name="searchParameters.@property.Name" value="@searchParam"/>
+        }
+        <input type="hidden" name="orderBy" value="@Model"/>
+        <input type="hidden" name="pageTitle" value="@ViewData["Title"]"/>
+        <button type="submit" class=""><i class="bi bi-sort-alpha-down"></i></button>
+    }
+</th>
