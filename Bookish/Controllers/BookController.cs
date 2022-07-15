@@ -26,7 +26,7 @@ public class BookController : Controller
     public ActionResult AddBook(AddCopiesModel parameters)
     {
         BookEditService.InsertBook(parameters.book);
-        var bookId = BookSearchService.SearchForBook(parameters.book).First().Id;
+        var bookId = BookSearch.Search(parameters.book).First().Id;
         for (int i = 0; i < parameters.numberOfCopies; i++)
         {
             BookCopyService.InsertBookCopy(bookId);
