@@ -33,3 +33,40 @@ body {
 .table {
   vertical-align: middle;
 }
+
+.custom-primary {
+  background-color: #27397b;
+}
+
+.custom-btn-primary {
+  color: white;
+  background-color: #27397b;
+  border-color: #27397b;
+}
+
+.custom-btn-primary:hover {
+  color: white;
+  background-color: #18244d;
+  border-color: #18244d;
+}
+
+.home-card {
+  border-color: #27397b;
+  border-width: 3px!important;
+}
+
+.home-card:hover {
+  background-color: #27397b;
+}
+
+.home-card-link {
+  text-decoration: none!important
+}
+
+.home-card-body {
+  color: #27397b;
+}
+
+.home-card:hover .home-card-body {
+  color: #fff!important
+}
