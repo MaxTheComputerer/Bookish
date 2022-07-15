@@ -23,7 +23,7 @@ public abstract class DatabaseSearch
         foreach (var property in typeof(TModel).GetProperties())
         {
             var parameter = property.GetValue(searchParameters);
-            if (property.Name != "Id" && parameter != null)
+            if (property.Name != "Id" && parameter != null) // will fail for properties with non-null defaults
             {
                 var parameterString = (string) parameter;
                 table = table.Where(book => ModelHasMatchingProperty(book, property, parameterString)).ToList();
