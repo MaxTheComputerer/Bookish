@@ -1,0 +1,31 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="addCopiesModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCopiesModalLabel">Add multiple copies of @Model.Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="numberOfCopies" class="form-label">Number of copies</label>
+                        <input type="hidden" name="book.Id" value="@Model.BookId"/>
+                        <input type="number" class="form-control" id="numberOfCopies" name="numberOfCopies" value="1"/>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i>
+                        Add copies
+                    </button>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>

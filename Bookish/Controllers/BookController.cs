@@ -23,10 +23,15 @@ public class BookController : Controller
     }
     
     [HttpPost]
-    public ActionResult AddBook(BookModel newBook)
+    public ActionResult AddBook(AddCopiesModel parameters)
     {
-        BookEditService.InsertBook(newBook);
-        return View(newBook);
+        BookEditService.InsertBook(parameters.book);
+        var bookId = BookSearch.Search(parameters.book).First().Id;
+        for (int i = 0; i < parameters.numberOfCopies; i++)
+        {
+            BookCopyService.InsertBookCopy(bookId);
+        }
+        return View(parameters.book);
     }
     
     [HttpGet]
@@ -86,12 +91,15 @@ public class BookController : Controller
         var result = BookCopyService.GetCopies(book);
         return View(result);
     }
-    
+
     [HttpPost]
-    public ActionResult AddCopy(BookModel book)
+    public ActionResult AddCopies(AddCopiesModel parameters)
     {
-        BookCopyService.InsertBookCopy(book.Id);
-        return RedirectToAction(nameof(ViewCopies), new { Id = book.Id });
+        for (int i = 0; i < parameters.numberOfCopies; i++)
+        {
+            BookCopyService.InsertBookCopy(parameters.book.Id);
+        }
+        return RedirectToAction(nameof(ViewCopies), new { Id = parameters.book.Id });
     }
     
     [HttpPost]

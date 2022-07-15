@@ -3,16 +3,27 @@
     ViewData["Title"] = "View Copies";
 }
 
+@Html.Partial("_AddMultipleCopiesModal", new { Title = Model.book.Title, BookId = Model.book.Id})
+
 <div class="text-center mb-4">
     <h1 class="display-4">Copies of @Model.book.Title</h1>
 </div>
 
-<div class="container mb-4">
-    @using (Html.BeginForm("AddCopy", "Book", FormMethod.Post))
+<div class="mb-4">
+    @using (Html.BeginForm("AddCopies", "Book", FormMethod.Post, new {@style = "display: inline;"}))
     {
-        <input type="hidden" id="addCopyId" name="Id" value=@Model.book.Id>
+        <input type="hidden" id="addCopyId" name="book.Id" value=@Model.book.Id>
+        <input type="hidden" id="addCopyNum" name="numberOfCopies" value="1">
         <button type="submit" class="btn btn-primary">Add copy</button>
     }
+    
+    <button type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addCopiesModal">
+        <i class="bi bi-plus-lg"></i>
+        Add multiple copies
+    </button>
 </div>
 
 @Html.Partial("_CopyTable", Model.copies)
