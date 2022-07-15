@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Bookish.Models;
 
 public class MemberEditService
