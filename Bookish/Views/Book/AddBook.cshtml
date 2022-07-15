@@ -4,14 +4,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Add a Book</h1>
-    @if (Model != null)
-    {
-        <div class="alert alert-success" role="alert">
-            Successfully added @Model.Title to the library! :)
-        </div>
-    }
+    <h1 class="display-4">Add new book</h1>
+</div>
+<br/>
 
+@if (Model != null)
+{
+    <div class="alert alert-success" role="alert">
+        Successfully added @Model.Title to the library! :)
+    </div>
+}
+<div class="row">
+    <div class="col"></div>
     <div class="col">
         @using (Html.BeginForm("AddBook", "Book", FormMethod.Post))
         {
@@ -32,4 +36,5 @@
             <button type="submit" class="btn custom-btn-primary">Submit</button>
         }
     </div>
+    <div class="col"></div>
 </div>

@@ -4,14 +4,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Add a Member</h1>
-    @if (Model != null)
-    {
-        <div class="alert alert-success" role="alert">
-            Successfully added @Model.Name to the library! :)
-        </div>
-    }
+    <h1 class="display-4">Add new library member</h1>
+</div>
+<br/>
 
+@if (Model != null)
+{
+    <div class="alert alert-success" role="alert">
+        Successfully added @Model.Name to the library! :)
+    </div>
+}
+
+<div class="row">
+    <div class="col"></div>
     <div class="col">
         @using (Html.BeginForm("AddMember", "Member", FormMethod.Post))
         {
@@ -20,12 +25,13 @@
                 if (property.Name != "Id")
                 {
                     <div class="mb-3">
-                    <label for=@property.Name class="form-label">@property.Name</label>
-                    <input type="text" class="form-control" id=@property.Name name=@property.Name>
+                        <label for=@property.Name class="form-label">@property.Name</label>
+                        <input type="text" class="form-control" id=@property.Name name=@property.Name>
                     </div>
                 }
             }
             <button type="submit" class="btn custom-btn-primary">Submit</button>
         }
     </div>
+    <div class="col"></div>
 </div>

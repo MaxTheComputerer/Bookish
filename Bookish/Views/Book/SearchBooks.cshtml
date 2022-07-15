@@ -1,27 +1,35 @@
-<div class="container">
-    <h2>Search</h2>
-    @using (Html.BeginForm("SearchBooksResults", "Book", FormMethod.Get))
-    {
-        @foreach (var property in typeof(BookModel).GetProperties())
+<div class="text-center">
+    <h1 class="display-4">Search books</h1>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        @using (Html.BeginForm("SearchBooksResults", "Book", FormMethod.Get))
         {
-            if (property.Name != "Id")
+            @foreach (var property in typeof(BookModel).GetProperties())
             {
-                <div class="mb-3">
-                    <label for="@property.Name" class="form-label">@property.Name</label>
-                    <input type="text" class="form-control" id="@property.Name" name="searchParameters.@property.Name">
-                </div>
-            }
-        }
-        <div class="mb-3">
-            <label for="orderBy" class="form-label">Order by</label>
-            <select class="form-select" id="orderBy" name="orderBy">
-                @foreach (var property in typeof(BookModel).GetProperties())
+                if (property.Name != "Id")
                 {
-                    <option value="@property.Name">@property.Name</option>
+                    <div class="mb-3">
+                        <label for=@property.Name class="form-label">@property.Name</label>
+                        <input type="text" class="form-control" id=@property.Name name="searchParameters.@property.Name">
+                    </div>
                 }
-            </select>
-        </div>
-        <input type="hidden" name="pageTitle" value="Search Results">
-        <button type="submit" class="btn custom-btn-primary">Search</button>
-    }
+            }
+            <div class="mb-3">
+                <label for="orderBy" class="form-label">Order by</label>
+                <select class="form-select" id="orderBy" name="orderBy">
+                    @foreach (var property in typeof(BookModel).GetProperties())
+                    {
+                        <option value="@property.Name">@property.Name</option>
+                    }
+                </select>
+            </div>
+            <input type="hidden" name="pageTitle" value="Search Results">
+            <button type="submit" class="btn custom-btn-primary">Search</button>
+        }
+    </div>
+    <div class="col"></div>
 </div>
