@@ -86,15 +86,4 @@ public class MemberController : Controller
         var result = MemberEditService.GetLoans(id);
         return View(result);
     }
-    
-    [HttpGet]
-    public IActionResult ViewLoans(int id)
-    {
-        if (id == null || MemberEditService.GetMemberFromId(id) == null)
-        {
-            return RedirectToAction(nameof(MemberList));
-        }
-        var result = MemberEditService.GetLoans(id);
-        return View(result);
-    }
 }
