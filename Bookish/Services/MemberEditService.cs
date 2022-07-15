@@ -16,7 +16,7 @@ public class MemberEditService
         MemberModel member = context.Members.Single(m =>m.Id == id);
         return member;
     }
-    
+
     public static void InsertMember(MemberModel newMember)
     {
         context.Members.Add(newMember);

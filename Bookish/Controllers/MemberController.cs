@@ -25,8 +25,15 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult AddMember(MemberModel newMember)
     {
-        MemberEditService.InsertMember(newMember);
-        return View(newMember);
+        if (MemberSearchService.IsFormBlank(newMember))
+        {
+            return View();
+        }
+        else
+        {
+            MemberEditService.InsertMember(newMember);
+            return View(newMember);
+        }
     }
     
     [HttpGet]
@@ -39,8 +46,15 @@ public class MemberController : Controller
     [HttpPost]
     public ActionResult EditMember(MemberModel replaceMember)
     {
-        MemberEditService.AlterMember(replaceMember.Id, replaceMember);
-        return RedirectToAction(nameof(MemberList));
+        if (MemberSearchService.IsFormBlank(replaceMember))
+        {
+            return View(replaceMember);
+        }
+        else
+        {
+            MemberEditService.AlterMember(replaceMember.Id, replaceMember);
+            return RedirectToAction(nameof(MemberList));
+        }
     }
     
     [HttpPost]

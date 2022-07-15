@@ -14,7 +14,7 @@ public class BookEditService
         BookModel book = context.Books.Single(b =>b.Id == id);
         return book;
     }
-        
+    
     public static void InsertBook(BookModel newBook)
     {
         context.Books.Add(newBook);
