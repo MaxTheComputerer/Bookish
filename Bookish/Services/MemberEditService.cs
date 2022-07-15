@@ -38,6 +38,8 @@ public class MemberEditService
     
     public static void DeleteMember(int id)
     {
+        var loans = GetLoans(id);
+        loans.ForEach(copy => BookCopyService.CheckInCopy(copy.Id));
         var lostMember = GetMemberFromId(id);
         context.Members.Remove(lostMember);
         context.SaveChanges();
