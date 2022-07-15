@@ -24,8 +24,8 @@
                 if (property.Name != "Id")
                 {
                     <div class="mb-3">
-                        <label for=@property.Name class="form-label">@property.Name</label>
-                        <input type="text" class="form-control" id=@property.Name name="book.@property.Name">
+                        <label for="@property.Name" class="form-label">@DisplayService.FormatPropertyName(property.Name)</label>
+                        <input type="text" class="form-control" id="@property.Name" name="book.@property.Name">
                     </div>
                 }
             }
