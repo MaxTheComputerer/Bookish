@@ -30,11 +30,10 @@
                     }
                 }
                 <td>
-                    @using (Html.BeginForm("EditMember", "Member", FormMethod.Get))
-                    {
-                        <input type="hidden" id="id" name="id" value=@member.Id>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    }
+                    <input type="button" value="Current Loans" class="btn btn-primary" onclick="location.href='@Url.Action("ViewLoans", "Member", new { Id = member.Id })'" />
+                </td>
+                <td>
+                    <input type="button" value="Edit" class="btn btn-primary" onclick="location.href='@Url.Action("EditMember", "Member", new { id = member.Id })'" />
                 </td>
                 <td>
                     @using (Html.BeginForm("DeleteMember", "Member", FormMethod.Post))
